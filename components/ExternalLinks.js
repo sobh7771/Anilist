@@ -5,9 +5,9 @@ import { StyledTags } from "./Tags";
 function ExternalLinks({ externalLinks }) {
 	return (
 		<StyledExternalLinks>
-			<h2 css={``}>External &amp; Streaming links</h2>
+			<h2>External &amp; Streaming links</h2>
 			{externalLinks.map((link) => (
-				<Link href={link.url}>
+				<Link href={link.url} key={link.url}>
 					<a target="_blank">{link.site}</a>
 				</Link>
 			))}

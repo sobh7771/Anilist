@@ -25,7 +25,13 @@ function MediaList({ layout = "grid", mediaList, ranked }) {
 	return (
 		<StyledMediaList layout={layout}>
 			{mediaList.map((media, i) => (
-				<MediaItem layout={layout} media={media} rank={i + 1} ranked={ranked} />
+				<MediaItem
+					key={i}
+					layout={layout}
+					media={media}
+					rank={i + 1}
+					ranked={ranked}
+				/>
 			))}
 		</StyledMediaList>
 	);

@@ -121,7 +121,7 @@ function MediaItem({ layout, rank, media, ranked }) {
 
 	useEffect(() => {
 		const { x } = ref.current.getBoundingClientRect();
-		console.log(x, 290);
+
 		if (x >= 290) {
 			setPosition("left");
 		} else {

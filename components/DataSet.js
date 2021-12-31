@@ -1,11 +1,22 @@
 import styled from "styled-components";
 
-function DataSet({ type, children: Component }) {
-	return (
+function DataSet({ type, children, value }) {
+	if (children) {
+		return (
+			<StyledDataSet>
+				<p className="type">{type}</p>
+				{children}
+			</StyledDataSet>
+		);
+	}
+
+	return value ? (
 		<StyledDataSet>
 			<p className="type">{type}</p>
-			{Component}
+			<div className="value">{value}</div>
 		</StyledDataSet>
+	) : (
+		""
 	);
 }
 

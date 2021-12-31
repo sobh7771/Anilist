@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 function Tags({ tags }) {
+	if (!tags.length) return "";
 	return (
 		<StyledTags>
 			<h2>Tags</h2>

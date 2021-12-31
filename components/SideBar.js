@@ -31,6 +31,7 @@ function SideBar(props) {
 	} = props;
 
 	console.log(props);
+
 	return (
 		<div
 			css={`
@@ -39,61 +40,45 @@ function SideBar(props) {
 				gap: 1.6rem;
 			`}>
 			<Ranking>
-				<Link href={""}>
-					<a className="rated">
-						<AiFillStar className="rated-icon" />
-						<p className="rated-text">
-							#{rankings[0].rank} {rankings[0].context}
-						</p>
-					</a>
-				</Link>
-				<Link href={""}>
-					<a className="popular">
-						<AiFillHeart className="popular-icon" />
-						<p className="popular-text">
-							#{rankings[1].rank} {rankings[1].context}
-						</p>
-					</a>
-				</Link>
+				{rankings.length ? (
+					<>
+						<Link href={""}>
+							<a className="rated">
+								<AiFillStar className="rated-icon" />
+								<p className="rated-text">
+									#{rankings[0].rank} {rankings[0].context}
+								</p>
+							</a>
+						</Link>
+						<Link href={""}>
+							<a className="popular">
+								<AiFillHeart className="popular-icon" />
+								<p className="popular-text">
+									#{rankings[1].rank} {rankings[1].context}
+								</p>
+							</a>
+						</Link>
+					</>
+				) : null}
 			</Ranking>
 			<Data>
-				<DataSet type={"Format"}>
-					<p className="value">{format}</p>
-				</DataSet>
-				{duration && (
-					<DataSet type={"Episode Duration"}>
-						<p className="value">{`${duration} min`}</p>
-					</DataSet>
-				)}
-				<DataSet type={"Status"}>
-					<p className="value">{helpers.capitalize(status)}</p>
-				</DataSet>
-				<DataSet type={"Start Date"}>
-					<p className="value">{`${helpers.getMonth(startDate.month - 1)} ${
+				<DataSet type={"Format"} value={format} />
+				<DataSet type={"Episode Duration"} value={duration} />
+				<DataSet type={"Status"} value={helpers.capitalize(status)} />
+				<DataSet
+					type={"Start Date"}
+					value={`${helpers.getMonth(startDate.month - 1)} ${
 						startDate.day ? startDate.day : ""
-					}, ${startDate.year}`}</p>
-				</DataSet>
-				<DataSet type={"Season"}>
-					<p className="value">{`${helpers.capitalize(
-						season
-					)} ${seasonYear}`}</p>
-				</DataSet>
-				{averageScore && (
-					<DataSet type={"Average Score"}>
-						<p className="value">{averageScore}%</p>
-					</DataSet>
-				)}
-				{meanScore && (
-					<DataSet type={"Mean Score"}>
-						<p className="value">{meanScore}%</p>
-					</DataSet>
-				)}
-				<DataSet type={"Popularity"}>
-					<p className="value">{popularity}</p>
-				</DataSet>
-				<DataSet type={"Favorites"}>
-					<p className="value">{favourites}</p>
-				</DataSet>
+					}, ${startDate.year}`}
+				/>
+				<DataSet
+					type={"Season"}
+					value={`${helpers.capitalize(season)} ${seasonYear}`}
+				/>
+				<DataSet type={"Average Score"} value={averageScore} />
+				<DataSet type={"Mean Score"} value={meanScore} />
+				<DataSet type={"Popularity"} value={popularity} />
+				<DataSet type={"Favorites"} value={favourites} />
 				<DataSet type={"Studios"}>
 					{studios.edges.map((el) => (
 						<Link
@@ -116,9 +101,7 @@ function SideBar(props) {
 						</Link>
 					))}
 				</DataSet>
-				<DataSet type={"Source"}>
-					<p className="value">{helpers.capitalize(source)}</p>
-				</DataSet>
+				<DataSet type={"Source"} value={helpers.capitalize(source)} />
 				{hashtag && (
 					<DataSet type={"Hashtag"}>
 						<Link
@@ -131,25 +114,23 @@ function SideBar(props) {
 						</Link>
 					</DataSet>
 				)}
-				<DataSet type={"Genres"}>
-					{genres.map((el, i) => (
-						<Link key={i} href={`/search/anime/${encodeURIComponent(el)}`}>
-							<a className="value link">{el}</a>
-						</Link>
-					))}
-				</DataSet>
-				<DataSet type={"Romaji"}>
-					<p className="value">{title.romaji}</p>
-				</DataSet>
-				<DataSet type={"English"}>
-					<p className="value">{title.english}</p>
-				</DataSet>
-				<DataSet type={"Native"}>
-					<p className="value">{title.native}</p>
-				</DataSet>
+				{genres.length ? (
+					<DataSet type={"Genres"}>
+						{genres.map((el, i) => (
+							<Link key={i} href={`/search/anime/${encodeURIComponent(el)}`}>
+								<a className="value link">{el}</a>
+							</Link>
+						))}
+					</DataSet>
+				) : (
+					""
+				)}
+				<DataSet type={"Romaji"} value={title.romaji} />
+				<DataSet type={"English"} value={title.english} />
+				<DataSet type={"Native"} value={title.native} />
 			</Data>
-			<Tags tags={tags} />
-			<ExternalLinks externalLinks={externalLinks} />
+			<Tags tags={tags}/>
+			<ExternalLinks externalLinks={externalLinks}/>
 		</div>
 	);
 }

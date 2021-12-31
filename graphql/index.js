@@ -3,8 +3,6 @@ const { gql } = require("graphql-request");
 
 const client = new GraphQLClient("https://graphql.anilist.co/");
 
-console.log(client);
-
 const HomeQuery = gql`
 	query (
 		$season: MediaSeason
@@ -107,36 +105,21 @@ const GetMedia = gql`
 				month
 				day
 			}
-			endDate {
-				year
-				month
-				day
-			}
 			description
 			season
 			seasonYear
-			type
 			format
 			status(version: 2)
 			episodes
 			duration
-			chapters
-			volumes
 			genres
 			synonyms
 			source(version: 3)
-			isAdult
-			isLocked
 			meanScore
 			averageScore
 			popularity
 			favourites
 			hashtag
-			countryOfOrigin
-			isLicensed
-			isFavourite
-			isRecommendationBlocked
-			isFavouriteBlocked
 			nextAiringEpisode {
 				airingAt
 				timeUntilAiring
@@ -168,20 +151,9 @@ const GetMedia = gql`
 				site
 				url
 			}
-			streamingEpisodes {
-				site
-				title
-				thumbnail
-				url
-			}
 			rankings {
 				id
 				rank
-				type
-				format
-				year
-				season
-				allTime
 				context
 			}
 			tags {
@@ -190,8 +162,6 @@ const GetMedia = gql`
 				description
 				rank
 				isMediaSpoiler
-				isGeneralSpoiler
-				userId
 			}
 		}
 	}

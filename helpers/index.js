@@ -43,6 +43,8 @@ const helpers = {
 		return seasons[i === 3 ? 0 : i + 1];
 	},
 	capitalize(str) {
+		if (!str) return;
+
 		const arr = str.split("_");
 
 		return arr

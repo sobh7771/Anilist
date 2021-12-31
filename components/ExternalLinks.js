@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { StyledTags } from "./Tags";
 
 function ExternalLinks({ externalLinks }) {
+	if (!externalLinks.length) {
+		return "";
+	}
 	return (
 		<StyledExternalLinks>
 			<h2>External &amp; Streaming links</h2>

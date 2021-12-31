@@ -20,10 +20,13 @@ function AnimePage({ data }) {
 	}
 
 	const { title, bannerImage, coverImage, description, ...rest } = data.Media;
+	let length, maxLength, maxDescription;
 
-	const length = description.length;
-	const maxLength = 674;
-	const maxDescription = description.substring(0, maxLength - 1);
+	if (description) {
+		length = description.length;
+		maxLength = 674;
+		maxDescription = description.substring(0, maxLength - 1);
+	}
 
 	return (
 		<Layout title={title.userPreferred}>

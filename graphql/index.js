@@ -89,7 +89,6 @@ const HomeQuery = gql`
 const GetMedia = gql`
 	query media($id: Int, $type: MediaType) {
 		Media(id: $id, type: $type) {
-			id
 			title {
 				userPreferred
 				romaji
@@ -127,17 +126,14 @@ const GetMedia = gql`
 			}
 			studios {
 				edges {
-					isMain
 					node {
 						id
 						name
 					}
 				}
 			}
-
 			staff {
 				edges {
-					id
 					node {
 						id
 						name {
@@ -146,13 +142,11 @@ const GetMedia = gql`
 					}
 				}
 			}
-
 			externalLinks {
 				site
 				url
 			}
 			rankings {
-				id
 				rank
 				context
 			}

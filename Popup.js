@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import Genres from "./components/Genres";
 
@@ -91,9 +90,13 @@ function Popup({
 						{~~(nextAiringEpisode.timeUntilAiring / 86400)} days
 					</p>
 				)}
-				<div className="score">
-					<p>{averageScore}%</p>
-				</div>
+				{averageScore ? (
+					<div className="score">
+						<p>{averageScore}%</p>
+					</div>
+				) : (
+					""
+				)}
 			</Header>
 			<Studios color={color}>
 				{studios.edges.map((s) => s.node.name).join(" ")}

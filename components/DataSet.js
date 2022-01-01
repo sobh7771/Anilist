@@ -13,7 +13,9 @@ function DataSet({ type, children, value }) {
 	return value ? (
 		<StyledDataSet>
 			<p className="type">{type}</p>
-			<div className="value">{value}</div>
+			<div className="value">
+				{type.includes("Score") ? `${value}%` : value}
+			</div>
 		</StyledDataSet>
 	) : (
 		""

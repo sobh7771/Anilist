@@ -51,6 +51,19 @@ const helpers = {
 			.map((word) => word[0].toUpperCase() + word.substring(1).toLowerCase())
 			.join(" ");
 	},
+	getDate(day, month, year) {
+		if (!day && !month && year) {
+			return "";
+		} else if (!day && !month) {
+			return year;
+		} else if (!day) {
+			return `${month}, ${year}`;
+		} else if (!month) {
+			return `${day}, ${year}`;
+		}
+
+		return `${month} ${day}, ${year}`;
+	},
 };
 
 export default helpers;

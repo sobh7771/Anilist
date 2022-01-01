@@ -17,8 +17,6 @@ const StyledMediaNavBar = styled.nav`
 		}
 
 		a {
-			padding: 1rem 2.4rem;
-			display: block;
 			font: inherit;
 			font-size: 1.3rem;
 			color: inherit;
@@ -28,7 +26,6 @@ const StyledMediaNavBar = styled.nav`
 
 function MediaNavBar() {
 	const router = useRouter();
-	const { id, slug } = router.query;
 	const hash = router.asPath.split("#")[1];
 
 	return (

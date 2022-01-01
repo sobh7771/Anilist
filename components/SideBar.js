@@ -65,42 +65,64 @@ function SideBar(props) {
 				<DataSet type={"Format"} value={format} />
 				<DataSet type={"Episode Duration"} value={duration} />
 				<DataSet type={"Status"} value={helpers.capitalize(status)} />
-				<DataSet
-					type={"Start Date"}
-					value={`${helpers.getMonth(startDate.month - 1)} ${
-						startDate.day ? startDate.day : ""
-					}, ${startDate.year}`}
-				/>
-				<DataSet
-					type={"Season"}
-					value={`${helpers.capitalize(season)} ${seasonYear}`}
-				/>
+				{startDate.day || startDate.month || startDate.seasonYear ? (
+					<DataSet
+						type={"Start Date"}
+						value={`${helpers.getDate(
+							startDate.day,
+							helpers.getMonth(startDate.month - 1),
+							startDate.year
+						)}`}
+					/>
+				) : (
+					""
+				)}
+				{season || seasonYear ? (
+					<DataSet
+						type={"Season"}
+						value={`${helpers.getDate(
+							null,
+							helpers.capitalize(season),
+							seasonYear
+						)}`}
+					/>
+				) : (
+					""
+				)}
 				<DataSet type={"Average Score"} value={averageScore} />
 				<DataSet type={"Mean Score"} value={meanScore} />
 				<DataSet type={"Popularity"} value={popularity} />
 				<DataSet type={"Favorites"} value={favourites} />
-				<DataSet type={"Studios"}>
-					{studios.edges.map((el) => (
-						<Link
-							key={el.node.id}
-							href={`/studio/${el.node.id}/${encodeURIComponent(
-								el.node.name
-							)}`}>
-							<a className="value link">{el.node.name}</a>
-						</Link>
-					))}
-				</DataSet>
-				<DataSet type={"Producers"}>
-					{staff.edges.map((el) => (
-						<Link
-							key={el.node.id}
-							href={`/studio/${el.node.id}/${encodeURIComponent(
-								el.node.name.userPreferred
-							)}`}>
-							<a className="value link">{el.node.name.userPreferred}</a>
-						</Link>
-					))}
-				</DataSet>
+				{studios.edges.length ? (
+					<DataSet type={"Studios"}>
+						{studios.edges.map((el) => (
+							<Link
+								key={el.node.id}
+								href={`/studio/${el.node.id}/${encodeURIComponent(
+									el.node.name
+								)}`}>
+								<a className="value link">{el.node.name}</a>
+							</Link>
+						))}
+					</DataSet>
+				) : (
+					""
+				)}
+				{staff.edges.length ? (
+					<DataSet type={"Producers"}>
+						{staff.edges.map((el) => (
+							<Link
+								key={el.node.id}
+								href={`/studio/${el.node.id}/${encodeURIComponent(
+									el.node.name.userPreferred
+								)}`}>
+								<a className="value link">{el.node.name.userPreferred}</a>
+							</Link>
+						))}
+					</DataSet>
+				) : (
+					""
+				)}
 				<DataSet type={"Source"} value={helpers.capitalize(source)} />
 				{hashtag && (
 					<DataSet type={"Hashtag"}>
@@ -129,8 +151,8 @@ function SideBar(props) {
 				<DataSet type={"English"} value={title.english} />
 				<DataSet type={"Native"} value={title.native} />
 			</Data>
-			<Tags tags={tags}/>
-			<ExternalLinks externalLinks={externalLinks}/>
+			<Tags tags={tags} />
+			<ExternalLinks externalLinks={externalLinks} />
 		</div>
 	);
 }

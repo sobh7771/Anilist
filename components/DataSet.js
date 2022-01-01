@@ -10,15 +10,16 @@ function DataSet({ type, children, value }) {
 		);
 	}
 
+	if (type.includes("Duration")) value = `${value} min`;
+	if (type.includes("Score")) value = `${value}%`;
+
 	return value ? (
 		<StyledDataSet>
 			<p className="type">{type}</p>
-			<div className="value">
-				{type.includes("Score") ? `${value}%` : value}
-			</div>
+			<div className="value">{value}</div>
 		</StyledDataSet>
 	) : (
-		""
+		<></>
 	);
 }
 

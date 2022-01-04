@@ -5,6 +5,7 @@ import Link from "next/link";
 import Layout from "@/components/Layout";
 
 export default function Home({ data }) {
+	console.log(data);
 	return (
 		<Layout>
 			<div className="container">
@@ -149,7 +150,7 @@ export const getStaticProps = async () => {
 
 	const vars = {
 		seasonYear: year,
-		nextYear: year + 1,
+		nextYear: year,
 		season: season.toUpperCase(),
 		nextSeason: helpers.getNextSeason(season).toUpperCase(),
 	};

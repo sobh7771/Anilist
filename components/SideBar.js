@@ -30,8 +30,6 @@ function SideBar(props) {
 		externalLinks,
 	} = props;
 
-	console.log(props);
-
 	return (
 		<div
 			css={`
@@ -40,26 +38,30 @@ function SideBar(props) {
 				gap: 1.6rem;
 			`}>
 			<Ranking>
-				{rankings.length ? (
-					<>
-						<Link href={""}>
-							<a className="rated">
-								<AiFillStar className="rated-icon" />
-								<p className="rated-text">
-									#{rankings[0].rank} {rankings[0].context}
-								</p>
-							</a>
-						</Link>
-						<Link href={""}>
-							<a className="popular">
-								<AiFillHeart className="popular-icon" />
-								<p className="popular-text">
-									#{rankings[1].rank} {rankings[1].context}
-								</p>
-							</a>
-						</Link>
-					</>
-				) : null}
+				{rankings[0] ? (
+					<Link href={""}>
+						<a className="rated">
+							<AiFillStar className="rated-icon" />
+							<p className="rated-text">
+								#{rankings[0].rank} {rankings[0].context}
+							</p>
+						</a>
+					</Link>
+				) : (
+					<></>
+				)}
+				{rankings[1] ? (
+					<Link href={""}>
+						<a className="popular">
+							<AiFillHeart className="popular-icon" />
+							<p className="popular-text">
+								#{rankings[1]?.rank} {rankings[1]?.context}
+							</p>
+						</a>
+					</Link>
+				) : (
+					<></>
+				)}
 			</Ranking>
 			<Data>
 				<DataSet type={"Format"} value={format} />
@@ -164,6 +166,7 @@ export default SideBar;
  */
 
 const Ranking = styled.div`
+	height: max-content;
 	.rated,
 	.popular {
 		justify-content: space-evenly;

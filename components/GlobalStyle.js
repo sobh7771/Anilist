@@ -55,4 +55,39 @@ export default createGlobalStyle`
 		}
   }
 
+  .mb-1{
+    margin-bottom:1rem;
+  }
+
+  	.name {
+		color: #5c728a;
+		font-size: 1.2rem;
+	}
+
+	.role {
+		color: #9299a1;
+		font-size: 1.1rem;
+	}
+
+  .load-more{
+    background:#fafafa;
+    padding:1.4rem;
+    border:0;
+    border-radius:4px;
+    width:100%;
+    font-weight: 600;
+    color:#5c728a;
+    cursor:pointer;
+
+    &:disabled{
+      cursor:not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  	.create-new-thread {
+		font-size: 1.2rem;
+		color: #7a858f;
+	}
+
 `;

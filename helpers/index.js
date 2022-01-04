@@ -64,6 +64,9 @@ const helpers = {
 
 		return `${month} ${day}, ${year}`;
 	},
+	formatTitle(title) {
+		return title.length < 39 ? title : `${title.substring(0, 39)}...`;
+	},
 };
 
 export default helpers;

@@ -52,8 +52,8 @@ function MediaNavBar() {
 					css={`
 						${hash === "stuff" && "color: #3db4f2 !important;"}
 					`}>
-					<Link href={`#stuff`}>
-						<a>Stuff</a>
+					<Link href={`#staff`}>
+						<a>Staff</a>
 					</Link>
 				</li>
 				<li

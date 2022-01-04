@@ -2,7 +2,6 @@ import MediaNavBar from "@/components/MediaNavBar";
 import SideBar from "@/components/SideBar";
 import { getMedia } from "../../../graphql";
 import { gql, request } from "graphql-request";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useState } from "react";
@@ -10,9 +9,10 @@ import Layout from "@/components/Layout";
 import MyRouter from "@/components/MyRouter";
 import Overview from "@/components/Overview";
 import Characters from "@/components/Characters";
-
-const shimmer =
-	"data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9IjcwMCIgaGVpZ2h0PSI0NzUiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImciPgogICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjMzMzIiBvZmZzZXQ9IjIwJSIgLz4KICAgICAgPHN0b3Agc3RvcC1jb2xvcj0iIzIyMiIgb2Zmc2V0PSI1MCUiIC8+CiAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiMzMzMiIG9mZnNldD0iNzAlIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjcwMCIgaGVpZ2h0PSI0NzUiIGZpbGw9IiMzMzMiIC8+CiAgPHJlY3QgaWQ9InIiIHdpZHRoPSI3MDAiIGhlaWdodD0iNDc1IiBmaWxsPSJ1cmwoI2cpIiAvPgogIDxhbmltYXRlIHhsaW5rOmhyZWY9IiNyIiBhdHRyaWJ1dGVOYW1lPSJ4IiBmcm9tPSItNzAwIiB0bz0iNzAwIiBkdXI9IjFzIiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIgIC8+Cjwvc3ZnPg==";
+import Staff from "@/components/Staff";
+import Threads from "@/components/Threads";
+import MyImage from "@/components/MyImage";
+import ProgressBar from "@/components/ProgressBar";
 
 function AnimePage({ data }) {
 	const router = useRouter();
@@ -20,7 +20,7 @@ function AnimePage({ data }) {
 	const { id, slug } = router.query;
 
 	if (router.isFallback) {
-		return <div>Loading...</div>;
+		return <ProgressBar />;
 	}
 
 	const { title, bannerImage, coverImage, description, ...rest } = data.Media;
@@ -36,16 +36,7 @@ function AnimePage({ data }) {
 		<Layout title={title.userPreferred}>
 			<Header>
 				<div className="banner">
-					{bannerImage && (
-						<Image
-							src={bannerImage}
-							layout="fill"
-							objectFit="cover"
-							priority
-							placeholder="blur"
-							blurDataURL={shimmer}
-						/>
-					)}
+					{bannerImage && <MyImage src={bannerImage} layout="fill" priority />}
 				</div>
 				<div
 					className="container"
@@ -62,12 +53,7 @@ function AnimePage({ data }) {
 							position: relative;
 							transform: translateY(-35%);
 						`}>
-						<CoverImage
-							src={coverImage.large}
-							layout="fill"
-							placeholder="blur"
-							blurDataURL={shimmer}
-						/>
+						<CoverImage src={coverImage.large} layout="fill" />
 					</div>
 
 					<Content>
@@ -101,6 +87,7 @@ function AnimePage({ data }) {
 						grid-column-gap: 4rem;
 						grid-template-columns: 20.8rem auto;
 						margin: 3rem 0;
+						align-items: start;
 					`}>
 					<SideBar {...rest} title={title} />
 					<MyRouter path={`/anime/${id}/${encodeURIComponent(slug)}`}>
@@ -109,6 +96,12 @@ function AnimePage({ data }) {
 					<MyRouter
 						path={`/anime/${id}/${encodeURIComponent(slug)}#characters`}>
 						<Characters />
+					</MyRouter>
+					<MyRouter path={`/anime/${id}/${encodeURIComponent(slug)}#staff`}>
+						<Staff />
+					</MyRouter>
+					<MyRouter path={`/anime/${id}/${encodeURIComponent(slug)}#social`}>
+						<Threads />
 					</MyRouter>
 				</div>
 			</div>
@@ -232,6 +225,6 @@ const Content = styled.div`
 	}
 `;
 
-const CoverImage = styled(Image)`
+const CoverImage = styled(MyImage)`
 	border-radius: 2px;
 `;

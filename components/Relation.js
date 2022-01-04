@@ -1,25 +1,44 @@
+import helpers from "helpers";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import MyImage from "./MyImage";
 
-function Relation() {
+function Relation({ relation }) {
+	const { id, format, status, title, coverImage } = relation.node;
+	const manga = ["MANGA", "NOVEL", "ONE_SHOT"];
+	let href;
+
+	if (manga.includes(format)) {
+		href = `/manga/${id}/${encodeURIComponent(title.userPreferred)}`;
+	} else {
+		href = `/anime/${id}/${encodeURIComponent(title.userPreferred)}`;
+	}
+
 	return (
 		<StyledRelation>
-			<MyImage
-				src={
-					"https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/bx87216-c9bSNVD10UuD.png"
-				}
-				width={85}
-				height={115}
-				className="cover"
-			/>
+			<Link href={href}>
+				<a>
+					<MyImage
+						src={coverImage.large}
+						width={85}
+						height={115}
+						className="cover"
+					/>
+				</a>
+			</Link>
 			<div className="content">
-				<p className="info-header">Source</p>
-				<Link href={"/"}>
-					<a className="title link">Kimetsu no Yaiba</a>
+				<p className="info-header">
+					{helpers.capitalize(relation.relationType)}
+				</p>
+				<Link
+					href={`/${href}/${id}/${encodeURIComponent(title.userPreferred)}`}>
+					<a className="title link">{title.userPreferred}</a>
 				</Link>
-				<p className="info">Manga . Finished</p>
+				<p className="info">
+					{helpers.capitalize(format)} . {helpers.capitalize(status)}
+				</p>
 			</div>
 		</StyledRelation>
 	);

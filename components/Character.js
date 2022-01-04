@@ -1,44 +1,51 @@
+import helpers from "helpers";
 import Link from "next/link";
 import styled from "styled-components";
 import MyImage from "./MyImage";
 
-function Character() {
+function Character({ character: { id, role, node, voiceActors } }) {
 	return (
 		<StyledCharacter>
-			<div>
+			<div
+				css={`
+					width: 50%;
+					display: grid;
+					grid-template-columns: 6rem auto;
+				`}>
 				<Link href={"/"}>
-					<a>
-						<MyImage
-							className="cover"
-							src="https://s4.anilist.co/file/anilistcdn/staff/large/n111635-jL1n6ao0vMVq.png"
-							width={60}
-							height={80}
-						/>
+					<a className="cover">
+						<MyImage src={node.image.large} layout="fill" />
 					</a>
 				</Link>
 				<div className="content">
 					<Link href={"/"}>
-						<a className="name link">Tanjiro Kamado</a>
+						<a className="name link">{node.name.userPreferred}</a>
 					</Link>
-					<p className="role">Main</p>
+					<p className="role">{helpers.capitalize(role)}</p>
 				</div>
 			</div>
-			<div>
-				<div className="content">
-					<p className="name">Tanjiro Kamado</p>
-					<p className="role">Main</p>
+			{voiceActors[0] ? (
+				<div
+					css={`
+						width: 50%;
+						display: grid;
+						grid-template-columns: auto 6rem;
+					`}>
+					<div className="content">
+						<Link href={"/"}>
+							<a className="name link">{voiceActors[0].name.userPreferred}</a>
+						</Link>
+						<p className="role">{voiceActors[0].language}</p>
+					</div>
+					<Link href={"/"}>
+						<a className="cover">
+							<MyImage src={voiceActors[0].image.large} layout="fill" />
+						</a>
+					</Link>
 				</div>
-				<Link href={"/"}>
-					<a>
-						<MyImage
-							className="cover"
-							src="https://s4.anilist.co/file/anilistcdn/staff/large/n111635-jL1n6ao0vMVq.png"
-							width={60}
-							height={80}
-						/>
-					</a>
-				</Link>
-			</div>
+			) : (
+				<></>
+			)}
 		</StyledCharacter>
 	);
 }
@@ -47,31 +54,19 @@ export default Character;
 
 const StyledCharacter = styled.div`
 	display: flex;
-	> div {
-		border-radius: 4px;
-		over-flow: hidden;
-		width: 50%;
-		display: flex;
-	}
+	border-radius: 3px;
+	overflow: hidden;
+	background: #fafafa;
+	height: max-content;
 	.cover {
+		position: relative;
+		width: 6rem;
+		height: 8rem;
 	}
 	.content {
-		width: calc(100% - 60px);
-		height: 8rem;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		background: #fafafa;
 		padding: 1rem;
-	}
-
-	.name {
-		color: #5c728a;
-		font-size: 1.2rem;
-	}
-
-	.role {
-		color: #9299a1;
-		font-size: 1.1rem;
 	}
 `;

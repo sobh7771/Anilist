@@ -33,7 +33,7 @@ function AnimePage({ data }) {
 	}
 
 	return (
-		<Layout title={title.userPreferred}>
+		<Layout title={title.userPreferred} headerBackground="rgba(35,38,67,.5)">
 			<Header>
 				<div className="banner">
 					{bannerImage && <MyImage src={bannerImage} layout="fill" priority />}
@@ -157,8 +157,6 @@ const Header = styled.div`
 		position: relative;
 		width: 100vw;
 		height: 40rem;
-		margin-top: -4.8rem;
-
 		&::after {
 			content: "";
 			position: absolute;

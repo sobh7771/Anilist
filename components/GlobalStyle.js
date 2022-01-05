@@ -27,6 +27,8 @@ export default createGlobalStyle`
     max-width: 114rem;
     margin: 0 auto;
     padding: 0 1.6rem;
+    width: 100%;
+
   }
 
 

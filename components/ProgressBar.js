@@ -28,6 +28,7 @@ function ProgressBar() {
 				left: 0;
 				top: 0;
 				margin: auto;
+				z-index: 1000000;
 
 				.loader {
 					height: 100%;

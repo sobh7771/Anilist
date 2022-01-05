@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Dropdown from "./Dropdown";
 
 let scrollBefore = 0;
 
@@ -46,10 +47,21 @@ function Header({ headerBackground }) {
 					<div className="brand"></div>
 					<nav>
 						<ul>
-							<li>
+							<li
+								css={`
+									&:hover div {
+										transform: translateY(0%);
+										visibility: visible;
+									}
+
+									& > a {
+										padding: 1rem 1.5rem;
+									}
+								`}>
 								<Link href={"/search/anime"}>
 									<a>Browse</a>
 								</Link>
+								<Dropdown />
 							</li>
 							<li>
 								<Link href={"/social"}>
@@ -108,6 +120,7 @@ const StyledHeader = styled.header`
 		justify-content: center;
 	}
 	& li {
+		position: relative;
 		&:not(:last-child) {
 			margin-right: 1.6rem;
 		}

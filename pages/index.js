@@ -5,13 +5,13 @@ import Link from "next/link";
 import Layout from "@/components/Layout";
 
 export default function Home({ data }) {
-	console.log(data);
 	return (
 		<Layout>
 			<div className="container">
 				<div
 					css={`
 						margin-bottom: 5rem;
+						padding-top: 11.6rem;
 					`}>
 					<Link href="/">
 						<a

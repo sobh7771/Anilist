@@ -7,8 +7,8 @@ import Link from "next/link";
 function ThreadsPreview() {
 	const router = useRouter();
 	const { isLoading, isError, data } = useQuery(
-		["ThreadsPreview", router.asPath],
-		() => getThreads({ id: router.query.id, perPage: 2 })
+		router.query.id,
+		({ queryKey }) => getThreads({ id: queryKey[0], perPage: 2 })
 	);
 
 	if (isLoading) {

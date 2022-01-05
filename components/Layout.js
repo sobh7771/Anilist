@@ -1,6 +1,7 @@
 import Head from "next/head";
+import Header from "./Header";
 
-function Layout({ title, children }) {
+function Layout({ title, children, headerBackground }) {
 	return (
 		<>
 			<Head>
@@ -8,11 +9,11 @@ function Layout({ title, children }) {
 				<link rel="preconnect" href="https://fonts.googleapis.com" />
 				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
 				<link
-					href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap"
+					href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;500&family=Roboto:wght@400;500&display=swap"
 					rel="stylesheet"
 				/>
 			</Head>
-
+			<Header headerBackground={headerBackground} />
 			{children}
 		</>
 	);

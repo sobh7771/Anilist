@@ -28,8 +28,6 @@ export const search = ({ queryKey, pageParam = 1 }) => {
 		);
 	}
 
-	console.log(queryKey);
-
 	if (queryKey[0].year) {
 		queryKey[0].year = `${queryKey[0].year}%`;
 	}

@@ -120,8 +120,6 @@ function MediaItem({ layout, rank, media, ranked }) {
 		studios,
 	} = media;
 
-	console.log(type);
-
 	useEffect(() => {
 		const { x } = ref.current.getBoundingClientRect();
 

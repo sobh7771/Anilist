@@ -14,7 +14,6 @@ function Popup({
 	studios,
 	startDate,
 }) {
-	console.log(nextAiringEpisode);
 	return (
 		<StyledPopup position={position}>
 			<Header>

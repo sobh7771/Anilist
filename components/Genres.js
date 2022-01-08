@@ -1,4 +1,5 @@
 import Link from "next/link";
+import chroma from "chroma-js";
 
 function Genres({ genres, color, layout }) {
 	let allowable;
@@ -15,8 +16,10 @@ function Genres({ genres, color, layout }) {
 				<Link href="#" key={i}>
 					<a
 						css={`
-							color: #fff5f8 !important;
-							background: ${color};
+							color: ${chroma(color || "#d3e7f3")
+								.brighten()
+								.hex()} !important;
+							background: ${color || "#d3e7f3"};
 							margin-right: 0.8rem;
 							padding: 3px 1rem;
 							border-radius: 1rem;

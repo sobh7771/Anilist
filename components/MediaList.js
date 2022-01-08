@@ -21,7 +21,7 @@ const StyledMediaList = styled.div`
 	}}
 `;
 
-function MediaList({ layout = "grid", mediaList, ranked }) {
+function MediaList({ layout, mediaList, ranked }) {
 	return (
 		<StyledMediaList layout={layout}>
 			{mediaList.map((media, i) => (
@@ -36,5 +36,9 @@ function MediaList({ layout = "grid", mediaList, ranked }) {
 		</StyledMediaList>
 	);
 }
+
+MediaList.defaultProps = {
+	layout: "grid",
+};
 
 export default MediaList;

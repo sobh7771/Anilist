@@ -1,13 +1,14 @@
 import helpers from "helpers";
-import Image from "next/image";
 import Link from "next/link";
-import Popup, { StyledPopup } from "Popup";
+import Popup, { StyledPopup } from "@/components/Popup";
 import { useEffect, useRef, useState } from "react";
 import styled, { css } from "styled-components";
 import Genres from "./Genres";
 import MyImage from "./MyImage";
+import moment from "moment";
 
 const StyledMediaItem = styled.div`
+	font-family: Overpass;
 	${(props) => {
 		switch (props.layout) {
 			case "list":
@@ -79,11 +80,13 @@ const Rank = styled.div`
 	color: #8ba0b2;
 	padding: 1rem;
 	flex-basis: 8rem;
+	font-weight: 700;
 
 	span {
 		color: rgb(139, 160, 178);
 		font-size: 1.8rem;
 		padding-right: 4px;
+		opacity: 0.8;
 	}
 `;
 
@@ -105,6 +108,7 @@ function MediaItem({ layout, rank, media, ranked }) {
 	const [position, setPosition] = useState("");
 	const {
 		id,
+		type,
 		title,
 		coverImage,
 		nextAiringEpisode,
@@ -115,6 +119,8 @@ function MediaItem({ layout, rank, media, ranked }) {
 		startDate,
 		studios,
 	} = media;
+
+	console.log(type);
 
 	useEffect(() => {
 		const { x } = ref.current.getBoundingClientRect();
@@ -147,7 +153,10 @@ function MediaItem({ layout, rank, media, ranked }) {
 				</Rank>
 			)}
 			<StyledMediaItem layout={layout}>
-				<Link href={`/anime/${id}/${encodeURIComponent(title.userPreferred)}`}>
+				<Link
+					href={`/${type.toLowerCase()}/${id}/${encodeURIComponent(
+						title.userPreferred
+					)}`}>
 					<a>
 						<MyImage
 							css={`
@@ -171,10 +180,12 @@ function MediaItem({ layout, rank, media, ranked }) {
 					`}>
 					<Title color={coverImage.color} layout={layout}>
 						<Link
-							href={`/anime/${id}/${encodeURIComponent(title.userPreferred)}`}>
+							href={`/${type.toLowerCase()}/${id}/${encodeURIComponent(
+								title.userPreferred
+							)}`}>
 							<a>{title.userPreferred}</a>
 						</Link>
-						{layout !== "grid" && (
+						{layout === "list" && (
 							<Genres genres={genres} color={coverImage.color} />
 						)}
 					</Title>
@@ -186,12 +197,12 @@ function MediaItem({ layout, rank, media, ranked }) {
 								<p>60695 users</p>
 							</Score>
 							<Format>
-								<p>{format === "TV" ? "TV show" : format}</p>
+								<p>{format === "TV" ? "TV Show" : format}</p>
 								<p>{episodes} episodes</p>
 							</Format>
 							<StyledDate>
 								<p>
-									{helpers.getSeason(helpers.getMonth(startDate.month - 1))}
+									{helpers.getSeason(helpers.getMonth(startDate.month - 1))}{" "}
 									{startDate.year}
 								</p>
 								<p>Finished</p>
@@ -211,10 +222,15 @@ function MediaItem({ layout, rank, media, ranked }) {
 					episodes={episodes}
 					genres={genres}
 					studios={studios}
+					startDate={startDate}
 				/>
 			)}
 		</div>
 	);
 }
+
+MediaItem.defaultProps = {
+	layout: "grid",
+};
 
 export default MediaItem;

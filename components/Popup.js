@@ -1,7 +1,66 @@
 import styled, { css } from "styled-components";
-import Genres from "./components/Genres";
+import Genres from "@/components/Genres";
+import helpers from "helpers";
+import moment from "moment";
+
+function Popup({
+	position,
+	color,
+	nextAiringEpisode,
+	format,
+	averageScore,
+	episodes,
+	genres,
+	studios,
+	startDate,
+}) {
+	console.log(nextAiringEpisode);
+	return (
+		<StyledPopup position={position}>
+			<Header>
+				{nextAiringEpisode ? (
+					<p>
+						Ep {nextAiringEpisode.episode} airing{" "}
+						{moment(nextAiringEpisode.airingAt * 1000).fromNow()}
+					</p>
+				) : (
+					<p>
+						{helpers.getSeason(helpers.getMonth(startDate.month))}{" "}
+						{startDate.year}
+					</p>
+				)}
+				{!!averageScore && (
+					<div className="score">
+						<p>{averageScore}%</p>
+					</div>
+				)}
+			</Header>
+			<Studios color={color}>
+				{studios.edges.map((s) => s.node.name).join(" ")}
+			</Studios>
+			<Info>
+				<span>{format === "TV" ? "TV Show" : helpers.capitalize(format)}</span>
+				{episodes && (
+					<>
+						<span>•</span>
+						<span>{episodes} episodes</span>
+					</>
+				)}
+			</Info>
+			<Genres genres={genres} color={color} layout="grid" />
+		</StyledPopup>
+	);
+}
+
+export default Popup;
+
+/**
+ * Styled Components
+ */
 
 export const StyledPopup = styled.div`
+	font-family: Overpass;
+	font-weight: 600;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -70,49 +129,3 @@ const Info = styled(Studios)`
 		margin: 0 6px;
 	}
 `;
-
-function Popup({
-	position,
-	color,
-	nextAiringEpisode,
-	format,
-	averageScore,
-	episodes,
-	genres,
-	studios,
-}) {
-	return (
-		<StyledPopup position={position}>
-			<Header>
-				{nextAiringEpisode && (
-					<p>
-						Ep {nextAiringEpisode.episode} airing in{" "}
-						{~~(nextAiringEpisode.timeUntilAiring / 86400)} days
-					</p>
-				)}
-				{averageScore ? (
-					<div className="score">
-						<p>{averageScore}%</p>
-					</div>
-				) : (
-					""
-				)}
-			</Header>
-			<Studios color={color}>
-				{studios.edges.map((s) => s.node.name).join(" ")}
-			</Studios>
-			<Info>
-				<span>{format === "TV" ? "TV show" : format}</span>
-				{episodes && (
-					<>
-						<span>•</span>
-						<span>{episodes} episodes</span>
-					</>
-				)}
-			</Info>
-			<Genres genres={genres} color={color} layout="grid" />
-		</StyledPopup>
-	);
-}
-
-export default Popup;

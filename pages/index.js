@@ -10,133 +10,62 @@ export default function Home({ data }) {
 			<div className="container">
 				<div
 					css={`
-						margin-bottom: 5rem;
-						padding-top: 11.6rem;
+						> div:not(:last-child) {
+							margin-bottom: 5rem;
+						}
 					`}>
-					<Link href="/">
-						<a
-							css={`
-								display: flex;
-								justify-content: space-between;
-								color: rgb(100, 115, 128);
-								font-weight: 500;
-							`}>
-							<p
-								css={`
-									letter-spacing: 0.03em;
-									text-transform: uppercase;
-									margin-bottom: 20px;
-								`}>
-								trending now
-							</p>
-							<p>View all</p>
-						</a>
-					</Link>
-					<MediaList mediaList={data.trending.media} />
-				</div>
+					<div
+						css={`
+							padding-top: 11.6rem;
+						`}>
+						<Link href="/">
+							<a className="heading-3">
+								<p>trending now</p>
+								<p>View all</p>
+							</a>
+						</Link>
+						<MediaList mediaList={data.trending.media} />
+					</div>
 
-				<div
-					css={`
-						margin-bottom: 5rem;
-					`}>
-					<Link href="/">
-						<a
-							css={`
-								display: flex;
-								justify-content: space-between;
-								color: rgb(100, 115, 128);
-								font-weight: 500;
-							`}>
-							<p
-								css={`
-									letter-spacing: 0.03em;
-									text-transform: uppercase;
-									margin-bottom: 20px;
-								`}>
-								Popular this season
-							</p>
-							<p>View all</p>
-						</a>
-					</Link>
-					<MediaList mediaList={data.season.media} />
-				</div>
+					<div>
+						<Link href="/">
+							<a className="heading-3">
+								<p>Popular this season</p>
+								<p>View all</p>
+							</a>
+						</Link>
+						<MediaList mediaList={data.season.media} />
+					</div>
 
-				<div
-					css={`
-						margin-bottom: 5rem;
-					`}>
-					<Link href="/">
-						<a
-							css={`
-								display: flex;
-								justify-content: space-between;
-								color: rgb(100, 115, 128);
-								font-weight: 500;
-							`}>
-							<p
-								css={`
-									letter-spacing: 0.03em;
-									text-transform: uppercase;
-									margin-bottom: 20px;
-								`}>
-								Upcoming next season
-							</p>
-							<p>View all</p>
-						</a>
-					</Link>
-					<MediaList mediaList={data.nextSeason.media} />
-				</div>
+					<div>
+						<Link href="/">
+							<a className="heading-3">
+								<p>Upcoming next season</p>
+								<p>View all</p>
+							</a>
+						</Link>
+						<MediaList mediaList={data.nextSeason.media} />
+					</div>
 
-				<div
-					css={`
-						margin-bottom: 5rem;
-					`}>
-					<Link href="/">
-						<a
-							css={`
-								display: flex;
-								justify-content: space-between;
-								color: rgb(100, 115, 128);
-								font-weight: 500;
-							`}>
-							<p
-								css={`
-									letter-spacing: 0.03em;
-									text-transform: uppercase;
-									margin-bottom: 20px;
-								`}>
-								All time popular
-							</p>
-							<p>View all</p>
-						</a>
-					</Link>
-					<MediaList mediaList={data.popular.media} />
-				</div>
+					<div>
+						<Link href="/">
+							<a className="heading-3">
+								<p>All time popular</p>
+								<p>View all</p>
+							</a>
+						</Link>
+						<MediaList mediaList={data.popular.media} />
+					</div>
 
-				<div
-					css={`
-						margin-bottom: 5rem;
-					`}>
-					<Link href="/">
-						<a
-							css={`
-								display: flex;
-								justify-content: space-between;
-								color: rgb(100, 115, 128);
-								font-weight: 500;
-							`}>
-							<p
-								css={`
-									letter-spacing: 0.03em;
-									text-transform: uppercase;
-									margin-bottom: 20px;
-								`}>
-								Top 100 anime
-							</p>
-							<p>View all</p>
-						</a>
-					</Link>
-					<MediaList mediaList={data.top.media} layout="list" ranked={true} />
+					<div>
+						<Link href="/">
+							<a className="heading-3">
+								<p>Top 100 anime</p>
+								<p>View all</p>
+							</a>
+						</Link>
+						<MediaList mediaList={data.top.media} layout="list" ranked={true} />
+					</div>
 				</div>
 			</div>
 		</Layout>

@@ -18,7 +18,6 @@ export default createGlobalStyle`
   body {
     font-family: 'Roboto', sans-serif;
     font-size: 1.6rem;
-    font-weight: 400;
     background-color: #EDF1F5;
     color: #647380;
   }
@@ -47,6 +46,20 @@ export default createGlobalStyle`
   h2 {
     font-size: 1.4rem;
     font-weight: 500;
+  }
+
+  .heading-3 {
+    display: flex;
+    justify-content: space-between;
+    color: rgb(100, 115, 128);
+    font-family: Overpass;
+    font-weight: 700;
+
+    p:first-child {
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
   }
 
   .link{
@@ -87,9 +100,9 @@ export default createGlobalStyle`
     }
   }
 
-  	.create-new-thread {
-		font-size: 1.2rem;
-		color: #7a858f;
-	}
+  .create-new-thread {
+    font-size: 1.2rem;
+    color: #7a858f;
+  }
 
 `;

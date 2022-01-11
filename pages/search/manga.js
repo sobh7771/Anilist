@@ -18,8 +18,9 @@ function SearchPage() {
 							setView(view);
 						}}
 						view={view}
+						mediaType="MANGA"
 					/>
-					<InfiniteMediaCards view={view} mediaType="ANIME" />
+					<InfiniteMediaCards view={view} mediaType="MANGA" />
 				</div>
 			</div>
 		</Layout>

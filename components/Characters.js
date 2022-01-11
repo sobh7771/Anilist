@@ -8,7 +8,7 @@ import Spinner from "./Spinner";
 import ProgressBar from "./ProgressBar";
 let scrollBefore = 0;
 
-function Characters() {
+function Characters({ type }) {
 	const router = useRouter();
 	const {
 		isLoading,
@@ -22,7 +22,7 @@ function Characters() {
 		({ pageParam = 1 }) => {
 			return getCharacters({
 				id: router.query.id,
-				type: "ANIME",
+				type,
 				page: pageParam,
 			});
 		},
@@ -88,5 +88,9 @@ function Characters() {
 		</div>
 	);
 }
+
+Characters.defaultProps = {
+	type: "ANIME",
+};
 
 export default Characters;

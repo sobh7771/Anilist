@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import Select from "react-select";
 
 const customStyles = {
@@ -67,7 +68,23 @@ const customStyles = {
 	}),
 };
 
-function MySelect({ label, name, options, handleChange, value, ...rest }) {
+function MySelect({ label, name, options, value, ...rest }) {
+	const router = useRouter();
+
+	const handleChange = (selected, { name }) => {
+		let query;
+
+		if (Array.isArray(selected)) {
+			query = { ...router.query, [name]: selected.map((el) => el.value) };
+		} else {
+			query = { ...router.query, [name]: selected?.value };
+		}
+
+		router.push({ query: JSON.parse(JSON.stringify(query)) }, null, {
+			shallow: true,
+		});
+	};
+
 	return (
 		<div>
 			<p

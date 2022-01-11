@@ -13,7 +13,7 @@ import Staff from "@/components/Staff";
 import Threads from "@/components/Threads";
 import MyImage from "@/components/MyImage";
 
-function AnimePage({ data }) {
+function MangaPage({ data }) {
 	const router = useRouter();
 	const [showFullDescription, setShowFullDescription] = useState(false);
 	const { id, slug } = router.query;
@@ -84,18 +84,18 @@ function AnimePage({ data }) {
 						margin: 3rem 0;
 						align-items: start;
 					`}>
-					<SideBar {...rest} title={title} />
-					<MyRouter path={`/anime/${id}/${encodeURIComponent(slug)}`}>
-						<Overview />
+					<SideBar {...rest} title={title} type="MANGA" />
+					<MyRouter path={`/manga/${id}/${encodeURIComponent(slug)}`}>
+						<Overview type="MANGA" />
 					</MyRouter>
 					<MyRouter
-						path={`/anime/${id}/${encodeURIComponent(slug)}#characters`}>
-						<Characters />
+						path={`/manga/${id}/${encodeURIComponent(slug)}#characters`}>
+						<Characters type="MANGA" />
 					</MyRouter>
-					<MyRouter path={`/anime/${id}/${encodeURIComponent(slug)}#staff`}>
-						<Staff />
+					<MyRouter path={`/manga/${id}/${encodeURIComponent(slug)}#staff`}>
+						<Staff type="MANGA" />
 					</MyRouter>
-					<MyRouter path={`/anime/${id}/${encodeURIComponent(slug)}#social`}>
+					<MyRouter path={`/manga/${id}/${encodeURIComponent(slug)}#social`}>
 						<Threads />
 					</MyRouter>
 				</div>
@@ -104,13 +104,13 @@ function AnimePage({ data }) {
 	);
 }
 
-export default AnimePage;
+export default MangaPage;
 
 export const getStaticPaths = async () => {
 	const query = gql`
 		{
 			Page(page: 1, perPage: 5) {
-				media(sort: TRENDING_DESC, type: ANIME) {
+				media(sort: TRENDING_DESC, type: MANGA) {
 					id
 					title {
 						userPreferred
@@ -132,7 +132,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { id } }) => {
-	const data = await getMedia({ id, type: "ANIME" });
+	const data = await getMedia({ id, type: "MANGA" });
 
 	return {
 		props: {

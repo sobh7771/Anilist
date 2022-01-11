@@ -1,4 +1,4 @@
-import MediaList from "@/components/MediaList";
+import MediaCards from "@/components/MediaCards";
 import { getHomeQuery } from "../graphql";
 import helpers from "helpers";
 import Link from "next/link";
@@ -24,7 +24,7 @@ export default function Home({ data }) {
 								<p>View all</p>
 							</a>
 						</Link>
-						<MediaList mediaList={data.trending.media} />
+						<MediaCards mediaCards={data.trending.media} />
 					</div>
 
 					<div>
@@ -34,7 +34,7 @@ export default function Home({ data }) {
 								<p>View all</p>
 							</a>
 						</Link>
-						<MediaList mediaList={data.season.media} />
+						<MediaCards mediaCards={data.season.media} />
 					</div>
 
 					<div>
@@ -44,7 +44,7 @@ export default function Home({ data }) {
 								<p>View all</p>
 							</a>
 						</Link>
-						<MediaList mediaList={data.nextSeason.media} />
+						<MediaCards mediaCards={data.nextSeason.media} />
 					</div>
 
 					<div>
@@ -54,7 +54,7 @@ export default function Home({ data }) {
 								<p>View all</p>
 							</a>
 						</Link>
-						<MediaList mediaList={data.popular.media} />
+						<MediaCards mediaCards={data.popular.media} />
 					</div>
 
 					<div>
@@ -64,7 +64,7 @@ export default function Home({ data }) {
 								<p>View all</p>
 							</a>
 						</Link>
-						<MediaList mediaList={data.top.media} layout="list" ranked={true} />
+						<MediaCards mediaCards={data.top.media} view="list" isRanked />
 					</div>
 				</div>
 			</div>

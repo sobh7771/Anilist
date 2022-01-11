@@ -28,6 +28,7 @@ function SideBar(props) {
 		title,
 		tags,
 		externalLinks,
+		type,
 	} = props;
 
 	return (
@@ -95,7 +96,7 @@ function SideBar(props) {
 				<DataSet type={"Mean Score"} value={meanScore} />
 				<DataSet type={"Popularity"} value={popularity} />
 				<DataSet type={"Favorites"} value={favourites} />
-				{studios.edges.length ? (
+				{!!studios.edges.length && (
 					<DataSet type={"Studios"}>
 						{studios.edges.map((el) => (
 							<Link
@@ -107,10 +108,8 @@ function SideBar(props) {
 							</Link>
 						))}
 					</DataSet>
-				) : (
-					""
 				)}
-				{staff.edges.length ? (
+				{!!staff.edges.length && (
 					<DataSet type={"Producers"}>
 						{staff.edges.map((el) => (
 							<Link
@@ -122,8 +121,6 @@ function SideBar(props) {
 							</Link>
 						))}
 					</DataSet>
-				) : (
-					""
 				)}
 				<DataSet type={"Source"} value={helpers.capitalize(source)} />
 				{hashtag && (
@@ -141,7 +138,11 @@ function SideBar(props) {
 				{genres.length ? (
 					<DataSet type={"Genres"}>
 						{genres.map((el, i) => (
-							<Link key={i} href={`/search/anime/${encodeURIComponent(el)}`}>
+							<Link
+								key={i}
+								href={`/search/${type.toLowerCase()}?genres=${encodeURIComponent(
+									el
+								)}&sort=SCORE_DESC`}>
 								<a className="value link">{el}</a>
 							</Link>
 						))}

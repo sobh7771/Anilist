@@ -7,7 +7,7 @@ import ProgressBar from "./ProgressBar";
 import Member from "./Member";
 import Spinner from "./Spinner";
 
-function Staff() {
+function Staff({ type }) {
 	const router = useRouter();
 	const {
 		isLoading,
@@ -21,7 +21,7 @@ function Staff() {
 		({ pageParam = 1 }) => {
 			return getStaff({
 				id: router.query.id,
-				type: "ANIME",
+				type,
 				page: pageParam,
 			});
 		},
@@ -87,5 +87,9 @@ function Staff() {
 		</div>
 	);
 }
+
+Staff.defaultProps = {
+	type: "ANIME",
+};
 
 export default Staff;

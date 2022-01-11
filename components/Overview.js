@@ -3,19 +3,17 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import Recommendations from "./Recommendations";
 import Relations from "./Relations";
-import Staff from "./Staff";
-import Threads from "./Threads";
 import Trailer from "./Trailer";
 import Character from "./Character";
 import ThreadsPreview from "./ThreadsPreview";
 import ProgressBar from "./ProgressBar";
 import StaffPreview from "./StaffPreview";
 
-function Overview() {
+function Overview({ type }) {
 	const router = useRouter();
 	const { isLoading, isError, data } = useQuery(
 		["Overview", router.asPath],
-		() => getOverview({ type: "ANIME", id: router.query.id })
+		() => getOverview({ type, id: router.query.id })
 	);
 
 	if (isLoading) {
@@ -69,5 +67,9 @@ function Overview() {
 		</div>
 	);
 }
+
+Overview.defaultProps = {
+	type: "ANIME",
+};
 
 export default Overview;

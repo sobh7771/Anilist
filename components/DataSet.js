@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 function DataSet({ type, children, value }) {
+	let unit = "";
 	if (children) {
 		return (
 			<StyledDataSet>
@@ -10,13 +11,15 @@ function DataSet({ type, children, value }) {
 		);
 	}
 
-	if (type.includes("Duration")) value = `${value} min`;
-	if (type.includes("Score")) value = `${value}%`;
+	if (type.includes("Duration")) unit = "min";
+	if (type.includes("Score")) unit = "%";
 
 	return value ? (
 		<StyledDataSet>
 			<p className="type">{type}</p>
-			<div className="value">{value}</div>
+			<div className="value">
+				{value} {unit}
+			</div>
 		</StyledDataSet>
 	) : (
 		<></>

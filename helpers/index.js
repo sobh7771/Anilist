@@ -67,6 +67,9 @@ const helpers = {
 	formatTitle(title) {
 		return title.length < 39 ? title : `${title.substring(0, 39)}...`;
 	},
+	getFormat(str) {
+		return str === "TV" ? "TV Show" : this.capitalize(str);
+	},
 };
 
 export default helpers;

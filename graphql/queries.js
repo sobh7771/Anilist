@@ -65,6 +65,8 @@ const HomeQuery = gql`
 		status(version: 2)
 		episodes
 		genres
+		season
+		description
 		averageScore
 		popularity
 		nextAiringEpisode {

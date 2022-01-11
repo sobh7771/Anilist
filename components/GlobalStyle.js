@@ -105,4 +105,28 @@ export default createGlobalStyle`
     color: #7a858f;
   }
 
+  .custom-scrollbar {
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      transition: 0.2s linear;
+        &:hover {
+          background-color: #eee;
+          opacity: 0.9;
+        }
+    }
+
+    &::-webkit-scrollbar-thumb {
+      transition: background-color 0.2s linear;
+      background: #aaa;
+      border-radius: 6px;
+        &:hover {
+          background-color: #999;
+        }
+    }
+  }
+
 `;

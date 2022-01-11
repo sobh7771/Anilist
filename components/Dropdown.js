@@ -48,13 +48,14 @@ function Dropdown() {
 						<a className="primary-link-text">Anime</a>
 					</Link>
 					<SecondaryLinks>
-						<Link href={"/search/anime/top-100"}>
+						<Link href={"/search/anime?sort=SCORE_DESC"}>
 							<a>Top 100</a>
 						</Link>
-						<Link href={"/search/anime/trending"}>
+						<Link
+							href={"/search/anime?sort=TRENDING_DESC&sort=POPULARITY_DESC"}>
 							<a>Trending</a>
 						</Link>
-						<Link href={"/search/anime/top-movies"}>
+						<Link href={"/search/anime?format=MOVIE&sort=SCORE_DESC"}>
 							<a>Top Movies</a>
 						</Link>
 					</SecondaryLinks>
@@ -71,13 +72,14 @@ function Dropdown() {
 						<a className="primary-link-text">Manga</a>
 					</Link>
 					<SecondaryLinks>
-						<Link href={"/search/manga/top-100"}>
+						<Link href={"/search/manga?sort=SCORE_DESC"}>
 							<a>Top 100</a>
 						</Link>
-						<Link href={"/search/manga/trending"}>
+						<Link
+							href={"/search/manga?sort=TRENDING_DESC&sort=POPULARITY_DESC"}>
 							<a>Trending</a>
 						</Link>
-						<Link href={"/search/manga/top-manhwa"}>
+						<Link href={"/search/manga?countryOfRegin=KR&sort=SCORE_DESC"}>
 							<a>Top Manhwa</a>
 						</Link>
 					</SecondaryLinks>

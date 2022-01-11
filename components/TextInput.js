@@ -1,4 +1,21 @@
-function TextInput({ value, handleChange }) {
+import { useRouter } from "next/router";
+
+function TextInput({ value }) {
+	const router = useRouter();
+
+	const handleChange = (selected, { name }) => {
+		let query;
+
+		if (Array.isArray(selected)) {
+			query = { ...router.query, [name]: selected.map((el) => el.value) };
+		} else {
+			query = { ...router.query, [name]: selected?.value };
+		}
+
+		router.push({ query: JSON.parse(JSON.stringify(query)) }, null, {
+			shallow: true,
+		});
+	};
 	return (
 		<div
 			css={`

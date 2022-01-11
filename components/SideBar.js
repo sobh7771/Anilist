@@ -160,6 +160,10 @@ function SideBar(props) {
 	);
 }
 
+SideBar.defaultProps = {
+	type: "ANIME",
+};
+
 export default SideBar;
 
 /**

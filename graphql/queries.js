@@ -532,7 +532,7 @@ const Search = gql`
 	}
 `;
 
-const SearchInfiniteCharacters = gql`
+const InfiniteSearchStaff = gql`
 	query (
 		$page: Int = 1
 		$id: Int
@@ -561,7 +561,7 @@ const SearchInfiniteCharacters = gql`
 	}
 `;
 
-const SearchCharacters = gql`
+const SearchStaff = gql`
 	{
 		staff: Page(page: 1, perPage: 30) {
 			staff(sort: FAVOURITES_DESC) {
@@ -588,6 +588,67 @@ const SearchCharacters = gql`
 	}
 `;
 
+const InfiniteSearchCharacters = gql`
+	query (
+		$page: Int = 1
+		$id: Int
+		$search: String
+		$isBirthday: Boolean
+		$sort: [CharacterSort] = [FAVOURITES_DESC]
+	) {
+		Page(page: $page, perPage: 20) {
+			pageInfo {
+				total
+				perPage
+				currentPage
+				lastPage
+				hasNextPage
+			}
+			characters(
+				id: $id
+				search: $search
+				isBirthday: $isBirthday
+				sort: $sort
+			) {
+				id
+				name {
+					userPreferred
+				}
+				image {
+					large
+				}
+			}
+		}
+	}
+`;
+
+const SearchCharacters = gql`
+	{
+		characters: Page(page: 1, perPage: 30) {
+			characters(sort: FAVOURITES_DESC) {
+				id
+				name {
+					userPreferred
+				}
+				image {
+					large
+				}
+			}
+		}
+		characterBirthdays: Page(page: 1, perPage: 30) {
+			characters(isBirthday: true, sort: [FAVOURITES_DESC, ID_DESC]) {
+				id
+				name {
+					userPreferred
+				}
+				image {
+					large
+				}
+			}
+		}
+	}
+`;
+
 export {
 	GetOverview,
 	GetCharacters,
@@ -597,6 +658,8 @@ export {
 	GetStaff,
 	GetGenres,
 	Search,
+	SearchStaff,
+	InfiniteSearchStaff,
 	SearchCharacters,
-	SearchInfiniteCharacters,
+	InfiniteSearchCharacters,
 };

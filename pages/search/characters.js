@@ -3,17 +3,17 @@ import InfiniteCharacterCards from "@/components/InfiniteCharacterCards";
 import Layout from "@/components/Layout";
 import TextInput from "@/components/TextInput";
 import ProgressBar from "@/components/ProgressBar";
-import { infiniteSearchStaff, searchStaff } from "@/graphql/index";
+import { infiniteSearchCharacters, searchCharacters } from "@/graphql/index";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 import helpers from "helpers";
 
-function SearchStaff() {
+function SearchCharacters() {
 	const router = useRouter();
 	const { isLoading, isError, data } = useQuery(
 		[{ ...router.query }],
-		searchStaff,
+		searchCharacters,
 		{
 			enabled: helpers.isEmpty(router.query),
 		}
@@ -24,7 +24,7 @@ function SearchStaff() {
 	}
 
 	return (
-		<Layout title="Search Staff">
+		<Layout title="Search Characters">
 			<div className="container">
 				<div
 					css={`
@@ -50,7 +50,7 @@ function SearchStaff() {
 							font-size: 1.2rem;
 						}
 					`}>
-					<Title>Search Staff</Title>
+					<Title>Search Characters</Title>
 					<div
 						css={`
 							margin-bottom: 2.5rem;
@@ -67,26 +67,26 @@ function SearchStaff() {
 					) : (
 						<>
 							<CharacterCards
-								characters={data && data.staffBirthdays?.staff}
+								characters={data && data.characterBirthdays?.characters}
 								title="Birthdays"
-								link="/search/staff?isBirthday=true&sort=FAVOURITES_DESC&sort=ID_DESC"
+								link="/search/characters?isBirthday=true&sort=FAVOURITES_DESC&sort=ID_DESC"
 							/>
 							<CharacterCards
-								characters={data && data.staff?.staff}
-								title="Most Favoured Staff"
-								link="/search/staff?sort=FAVOURITES_DESC"
+								characters={data && data.characters?.characters}
+								title="Most Favoured Characters"
+								link="/search/characters?sort=FAVOURITES_DESC"
 							/>
 						</>
 					)}
 
-					<InfiniteCharacterCards queryFn={infiniteSearchStaff} />
+					<InfiniteCharacterCards queryFn={infiniteSearchCharacters} />
 				</div>
 			</div>
 		</Layout>
 	);
 }
 
-export default SearchStaff;
+export default SearchCharacters;
 
 /**
  * Styled Components

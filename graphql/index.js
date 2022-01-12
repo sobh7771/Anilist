@@ -8,7 +8,9 @@ import {
 	GetGenres,
 	Search,
 	SearchCharacters,
-	SearchInfiniteCharacters,
+	SearchStaff,
+	InfiniteSearchStaff,
+	InfiniteSearchCharacters,
 } from "./queries";
 
 const { GraphQLClient } = require("graphql-request");
@@ -30,8 +32,14 @@ export const search = ({ queryKey, pageParam = 1 }) => {
 	return client.request(Search, { ...queryKey[0], page: pageParam });
 };
 
+export const searchStaff = ({ queryKey }) =>
+	client.request(SearchStaff, { ...queryKey[0] });
+
+export const infiniteSearchStaff = ({ queryKey, pageParam = 1 }) =>
+	client.request(InfiniteSearchStaff, { ...queryKey[0], page: pageParam });
+
 export const searchCharacters = ({ queryKey }) =>
 	client.request(SearchCharacters, { ...queryKey[0] });
 
-export const searchInfiniteCharacters = ({ queryKey, pageParam = 1 }) =>
-	client.request(SearchInfiniteCharacters, { ...queryKey[0], page: pageParam });
+export const infiniteSearchCharacters = ({ queryKey, pageParam = 1 }) =>
+	client.request(InfiniteSearchCharacters, { ...queryKey[0], page: pageParam });

@@ -9,8 +9,10 @@ import CharacterCard from "./CharacterCard";
 import ProgressBar from "./ProgressBar";
 import Spinner from "./Spinner";
 
-function InfiniteCharacterCards() {
+function InfiniteCharacterCards({ queryFn }) {
 	const router = useRouter();
+	const pathnameArr = router.pathname.split("/");
+	const type = pathnameArr[pathnameArr.length - 1];
 	if (router.query.isBirthday) {
 		router.query.isBirthday = !!router.query.isBirthday;
 	}
@@ -21,7 +23,7 @@ function InfiniteCharacterCards() {
 		fetchNextPage,
 		isFetchingNextPage,
 		hasNextPage,
-	} = useInfiniteQuery([{ ...router.query }], searchInfiniteCharacters, {
+	} = useInfiniteQuery([{ ...router.query }], queryFn, {
 		enabled: !helpers.isEmpty(router.query),
 		getNextPageParam: (last, all) => {
 			const { currentPage, lastPage } = last.Page.pageInfo;
@@ -51,7 +53,7 @@ function InfiniteCharacterCards() {
 			<>
 				<Cards>
 					{data?.pages.map((page) =>
-						page.Page.staff.map((character) => (
+						page.Page[type].map((character) => (
 							<CharacterCard key={character.id} {...character} />
 						))
 					)}

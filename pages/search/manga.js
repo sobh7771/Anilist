@@ -7,7 +7,7 @@ function SearchPage() {
 	const [view, setView] = useState("small");
 
 	return (
-		<Layout title="Search Anime">
+		<Layout title="Manga Anime">
 			<div
 				css={`
 					padding-top: 11.6rem;

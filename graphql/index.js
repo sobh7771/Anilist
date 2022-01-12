@@ -7,6 +7,8 @@ import {
 	GetStaff,
 	GetGenres,
 	Search,
+	SearchCharacters,
+	SearchInfiniteCharacters,
 } from "./queries";
 
 const { GraphQLClient } = require("graphql-request");
@@ -22,14 +24,14 @@ export const getThreads = (vars) => client.request(GetThreads, vars);
 export const getStaff = (vars) => client.request(GetStaff, vars);
 export const getGenres = () => client.request(GetGenres);
 export const search = ({ queryKey, pageParam = 1 }) => {
-	if (!queryKey[0].search) {
-		queryKey[0] = JSON.parse(
-			JSON.stringify({ ...queryKey[0], search: undefined })
-		);
-	}
-
 	if (queryKey[0].year) {
 		queryKey[0].year = `${queryKey[0].year}%`;
 	}
 	return client.request(Search, { ...queryKey[0], page: pageParam });
 };
+
+export const searchCharacters = ({ queryKey }) =>
+	client.request(SearchCharacters, { ...queryKey[0] });
+
+export const searchInfiniteCharacters = ({ queryKey, pageParam = 1 }) =>
+	client.request(SearchInfiniteCharacters, { ...queryKey[0], page: pageParam });

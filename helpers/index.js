@@ -70,6 +70,9 @@ const helpers = {
 	getFormat(str) {
 		return str === "TV" ? "TV Show" : this.capitalize(str);
 	},
+	isEmpty(obj) {
+		return !Object.keys(obj).length;
+	},
 };
 
 export default helpers;

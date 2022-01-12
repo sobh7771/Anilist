@@ -1,24 +1,28 @@
 import { useRouter } from "next/router";
+import { FaSearch } from "react-icons/fa";
 
 function TextInput({ value }) {
 	const router = useRouter();
 
-	const handleChange = (selected, { name }) => {
-		let query;
-
-		if (Array.isArray(selected)) {
-			query = { ...router.query, [name]: selected.map((el) => el.value) };
-		} else {
-			query = { ...router.query, [name]: selected?.value };
-		}
-
-		router.push({ query: JSON.parse(JSON.stringify(query)) }, null, {
-			shallow: true,
-		});
+	const handleChange = (e) => {
+		router.push(
+			{
+				query: JSON.parse(
+					JSON.stringify({
+						...router.query,
+						search: e.target.value || undefined,
+					})
+				),
+			},
+			null,
+			{ shallow: true }
+		);
 	};
+
 	return (
 		<div
 			css={`
+				position: relative;
 				grid-column: 1/6;
 				@media only screen and (max-width: 1040px) {
 					grid-column: 1/24;
@@ -35,15 +39,22 @@ function TextInput({ value }) {
 				Search
 			</p>
 
+			<FaSearch
+				css={`
+					position: absolute;
+					top: 50%;
+					left: 8px;
+					transform: translateY(40%);
+					color: rgb(201, 215, 227);
+					font-size: 1.3rem;
+					height: 1.6rem;
+				`}
+			/>
+
 			<input
 				type="text"
-				onChange={(e) =>
-					handleChange(
-						{ value: e.target.value, label: e.target.value },
-						{ name: "search" }
-					)
-				}
-				value={value}
+				onChange={handleChange}
+				value={router.query.search || ""}
 				css={`
 					border: 0;
 					background: rgb(251, 251, 251);
@@ -57,6 +68,7 @@ function TextInput({ value }) {
 					padding: 8px;
 					border-radius: 4px;
 					width: 100%;
+					padding-left: 2.9rem;
 				`}
 			/>
 		</div>

@@ -144,8 +144,7 @@ const Content = styled.div`
 					width: 100%;
 					z-index: 10;
 					opacity: 0;
-					transition: all 200ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
-					backface-visibility: hidden;
+					transition: opacity 200ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
 					${({ position }) => {
 						switch (position) {
 							case "right":

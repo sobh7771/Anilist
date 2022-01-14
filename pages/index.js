@@ -18,7 +18,7 @@ export default function Home({ data }) {
 						css={`
 							padding-top: 11.6rem;
 						`}>
-						<Link href="/">
+						<Link href="/search/anime/trending">
 							<a className="heading-3">
 								<p>trending now</p>
 								<p>View all</p>
@@ -28,7 +28,7 @@ export default function Home({ data }) {
 					</div>
 
 					<div>
-						<Link href="/">
+						<Link href="/search/anime/this-season">
 							<a className="heading-3">
 								<p>Popular this season</p>
 								<p>View all</p>
@@ -38,7 +38,7 @@ export default function Home({ data }) {
 					</div>
 
 					<div>
-						<Link href="/">
+						<Link href="/search/anime/next-season">
 							<a className="heading-3">
 								<p>Upcoming next season</p>
 								<p>View all</p>
@@ -48,7 +48,7 @@ export default function Home({ data }) {
 					</div>
 
 					<div>
-						<Link href="/">
+						<Link href="/search/anime/popular">
 							<a className="heading-3">
 								<p>All time popular</p>
 								<p>View all</p>
@@ -58,7 +58,7 @@ export default function Home({ data }) {
 					</div>
 
 					<div>
-						<Link href="/">
+						<Link href="/search/anime/top-100">
 							<a className="heading-3">
 								<p>Top 100 anime</p>
 								<p>View all</p>

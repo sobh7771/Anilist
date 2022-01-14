@@ -33,7 +33,7 @@ function Header({ headerBackground }) {
 				height: 68px;
 				width: 100%;
 				z-index: 100;
-				transform: ${scrollDown && "translateY(-100%)"};
+				transform: ${scrollDown ? "translateY(-100%)" : "translateY(0)"};
 				transition: background 0.8s ease 0s, transform 0.5s ease 0s;
 				display: flex;
 				align-items: center;

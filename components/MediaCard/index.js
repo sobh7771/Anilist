@@ -92,7 +92,7 @@ function MediaCard(props) {
 												Ep {nextAiringEpisode.episode} airing{" "}
 												{moment(nextAiringEpisode.airingAt * 1000).fromNow()}
 											</>
-										) : (season || endDate.year) && startDate.year ? (
+										) : (season || endDate) && startDate.year ? (
 											<>
 												{helpers.capitalize(season) || `${endDate.year} -`}{" "}
 												{startDate.year}
@@ -165,7 +165,7 @@ function MediaCard(props) {
 						{chapters && <span>{chapters} chapters</span>}
 					</p>
 					<p className="list-date percentage">
-						{(season || endDate.year) && startDate.year ? (
+						{(season || endDate?.year) && startDate.year ? (
 							<>
 								{helpers.capitalize(season) || `${endDate.year} -`}{" "}
 								{startDate.year}

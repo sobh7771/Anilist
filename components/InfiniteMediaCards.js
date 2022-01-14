@@ -7,8 +7,9 @@ import { search } from "../graphql";
 import { useVisible } from "react-hooks-visible";
 import Spinner from "@/components/Spinner";
 import { useEffect } from "react";
+import _ from "lodash";
 
-function InfiniteMediaCards({ view, mediaType }) {
+function InfiniteMediaCards({ view, filters }) {
 	const router = useRouter();
 	const {
 		isLoading,
@@ -17,16 +18,21 @@ function InfiniteMediaCards({ view, mediaType }) {
 		fetchNextPage,
 		isFetchingNextPage,
 		hasNextPage,
-	} = useInfiniteQuery([{ ...router.query, type: mediaType }], search, {
-		getNextPageParam: (last, all) => {
-			const { currentPage, lastPage } = last.Page.pageInfo;
-			if (currentPage === lastPage) return;
+	} = useInfiniteQuery(
+		[{ ..._.omit(router.query, ["slug"]), ...filters }],
+		search,
+		{
+			getNextPageParam: (last, all) => {
+				const { currentPage, lastPage } = last.Page.pageInfo;
+				if (currentPage === lastPage) return;
 
-			return currentPage + 1;
-		},
-	});
+				return currentPage + 1;
+			},
+		}
+	);
 	const [targetRef, isVisible] = useVisible((vi) => vi > 0.5);
-	const isRanked = router.query.sort === "SCORE_DESC";
+	const { sort, slug } = router.query;
+	const isRanked = sort === "SCORE_DESC" || slug[1]?.includes("top");
 	let rank = 1;
 
 	useEffect(() => {

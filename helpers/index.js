@@ -73,6 +73,21 @@ const helpers = {
 	isEmpty(obj) {
 		return !Object.keys(obj).length;
 	},
+	mergeByYear(arr) {
+		const mergedObj = {};
+
+		arr.forEach((el) => {
+			const year = el.node.startDate.year;
+
+			if (mergedObj.hasOwnProperty(year)) {
+				mergedObj[year].push(el);
+			} else {
+				mergedObj[year] = [el];
+			}
+		});
+
+		return mergedObj;
+	},
 };
 
 export default helpers;

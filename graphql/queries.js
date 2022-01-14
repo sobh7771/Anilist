@@ -649,6 +649,123 @@ const SearchCharacters = gql`
 	}
 `;
 
+const GetStaffMemberById = gql`
+	query staff(
+		$id: Int
+		$sort: [MediaSort]
+		$characterPage: Int
+		$staffPage: Int
+		$onList: Boolean
+		$type: MediaType
+		$withCharacterRoles: Boolean = false
+		$withStaffRoles: Boolean = false
+	) {
+		Staff(id: $id) {
+			id
+			name {
+				first
+				middle
+				last
+				full
+				native
+				userPreferred
+				alternative
+			}
+			image {
+				large
+			}
+			description
+			favourites
+			isFavourite
+			age
+			gender
+			yearsActive
+			homeTown
+			bloodType
+			primaryOccupations
+			dateOfBirth {
+				year
+				month
+				day
+			}
+			dateOfDeath {
+				year
+				month
+				day
+			}
+			language: languageV2
+			characterMedia(page: $characterPage, sort: $sort, onList: $onList)
+				@include(if: $withCharacterRoles) {
+				pageInfo {
+					total
+					perPage
+					currentPage
+					lastPage
+					hasNextPage
+				}
+				edges {
+					characterRole
+					characterName
+					node {
+						id
+						type
+						bannerImage
+						title {
+							userPreferred
+						}
+						coverImage {
+							large
+						}
+						startDate {
+							year
+						}
+						mediaListEntry {
+							id
+							status
+						}
+					}
+					characters {
+						id
+						name {
+							userPreferred
+						}
+						image {
+							large
+						}
+					}
+				}
+			}
+			staffMedia(page: $staffPage, type: $type, sort: $sort, onList: $onList)
+				@include(if: $withStaffRoles) {
+				pageInfo {
+					total
+					perPage
+					currentPage
+					lastPage
+					hasNextPage
+				}
+				edges {
+					staffRole
+					node {
+						id
+						type
+						title {
+							userPreferred
+						}
+						coverImage {
+							large
+						}
+						mediaListEntry {
+							id
+							status
+						}
+					}
+				}
+			}
+		}
+	}
+`;
+
 export {
 	GetOverview,
 	GetCharacters,

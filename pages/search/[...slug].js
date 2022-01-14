@@ -128,6 +128,7 @@ export const getStaticPaths = () => {
 			{ params: { slug: ["anime", "this-season"] } },
 			{ params: { slug: ["anime", "next-season"] } },
 			{ params: { slug: ["anime", "popular"] } },
+			{ params: { slug: ["anime", "top-movies"] } },
 			{ params: { slug: ["manga"] } },
 			{ params: { slug: ["manga", "trending"] } },
 			{ params: { slug: ["manga", "top-100"] } },

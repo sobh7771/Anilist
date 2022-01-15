@@ -1,11 +1,16 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import MyImage from "./MyImage";
 
 function CharacterCard({ id, name, image }) {
+	const router = useRouter();
+
+	const type =
+		router.pathname.split("/")[router.pathname.split("/").length - 1];
 	return (
 		<Card key={id}>
-			<Link href={`/staff/${id}/${encodeURIComponent(name.userPreferred)}`}>
+			<Link href={`/${type}/${id}/${encodeURIComponent(name.userPreferred)}`}>
 				<a>
 					<MyImage
 						src={image.large}

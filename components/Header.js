@@ -112,8 +112,6 @@ const StyledHeader = styled.header`
 	color: #bcbedc;
 	width: 100%;
 
-	& nav {
-	}
 	& ul {
 		display: flex;
 		align-items: center;

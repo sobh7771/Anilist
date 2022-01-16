@@ -52,8 +52,10 @@ const helpers = {
 			.join(" ");
 	},
 	getDate(day, month, year) {
-		if (!day && !month && year) {
+		if (!day && !month && !year) {
 			return "";
+		} else if (!year) {
+			return `${month} ${day}`;
 		} else if (!day && !month) {
 			return year;
 		} else if (!day) {

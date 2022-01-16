@@ -8,21 +8,11 @@ import { API_URL } from "config";
 import StaffMemberPersonalInfoDataPoint from "@/components/StaffMemberPersonalInfoDataPoint";
 import helpers from "helpers";
 import MiniSelect from "@/components/MiniSelect";
-import InfiniteStaffMemberCharacterMedia from "@/components/InfiniteStaffMemberCharacterMedia";
-import InfiniteStaffMemberStaffMedia from "@/components/InfiniteStaffMemberStaffMedia";
+import InfiniteCharacterCharacterMedia from "@/components/InfiniteCharacterPageCharacterMedia";
 
-function StaffMemberPage({ personalInfo }) {
-	const {
-		name,
-		image,
-		favourites,
-		age,
-		dateOfBirth,
-		yearsActive,
-		homeTown,
-		bloodType,
-		primaryOccupations,
-	} = personalInfo;
+function CharacterPage({ personalInfo }) {
+	const { name, image, favourites, age, dateOfBirth, bloodType, height } =
+		personalInfo;
 
 	return (
 		<Layout>
@@ -49,27 +39,18 @@ function StaffMemberPage({ personalInfo }) {
 						<div className="description">
 							<StaffMemberPersonalInfoDataPoint
 								label="Birth"
-								value={`${helpers.getMonth(dateOfBirth.month - 1)} ${
-									dateOfBirth.day
-								}, ${dateOfBirth.year}`}
+								value={`${helpers.getDate(
+									dateOfBirth.day,
+									helpers.getMonth(dateOfBirth.month - 1),
+									dateOfBirth.year
+								)}`}
 							/>
 							<StaffMemberPersonalInfoDataPoint label="Age" value={age} />
-							<StaffMemberPersonalInfoDataPoint
-								label="Years Active"
-								value={yearsActive}
-							/>
-							<StaffMemberPersonalInfoDataPoint
-								label="Hometown"
-								value={homeTown}
-							/>
 							<StaffMemberPersonalInfoDataPoint
 								label="Blood Type"
 								value={bloodType}
 							/>
-							<StaffMemberPersonalInfoDataPoint
-								label="Occupations"
-								value={primaryOccupations}
-							/>
+							<StaffMemberPersonalInfoDataPoint label="Height" value={height} />
 						</div>
 					</div>
 				</div>
@@ -94,8 +75,7 @@ function StaffMemberPage({ personalInfo }) {
 						]}
 					/>
 				</div>
-				<InfiniteStaffMemberCharacterMedia />
-				<InfiniteStaffMemberStaffMedia />
+				<InfiniteCharacterCharacterMedia />
 			</div>
 		</Layout>
 	);
@@ -105,13 +85,13 @@ function StaffMemberPage({ personalInfo }) {
  * Query functions
  **/
 
-const getStaffMemberStaticPaths = () =>
+const getCharacterStaticPaths = () =>
 	request(
 		API_URL,
 		gql`
 			{
 				Page(page: 1, perPage: 10) {
-					staff {
+					characters {
 						id
 						name {
 							userPreferred
@@ -122,15 +102,15 @@ const getStaffMemberStaticPaths = () =>
 		`
 	);
 
-const getStaffMemberPersonalInfo = (id) =>
+const getCharacterPersonalInfo = (id) =>
 	request(
 		API_URL,
 		gql`
-			query staff($id: Int) {
-				Staff(id: $id) {
+			query character($id: Int) {
+				Character(id: $id) {
 					name {
-						userPreferred
 						native
+						userPreferred
 					}
 					image {
 						large
@@ -138,21 +118,13 @@ const getStaffMemberPersonalInfo = (id) =>
 					favourites
 					age
 					gender
-					yearsActive
-					homeTown
 					bloodType
-					primaryOccupations
+					# height
 					dateOfBirth {
 						year
 						month
 						day
 					}
-					dateOfDeath {
-						year
-						month
-						day
-					}
-					language: languageV2
 				}
 			}
 		`,
@@ -163,9 +135,9 @@ const getStaffMemberPersonalInfo = (id) =>
  * Data fetching
  **/
 export const getStaticPaths = async () => {
-	const data = await getStaffMemberStaticPaths();
+	const data = await getCharacterStaticPaths();
 
-	const paths = data.Page.staff.map((m) => ({
+	const paths = data.Page.characters.map((m) => ({
 		params: { id: m.id + "", name: m.name.userPreferred },
 	}));
 
@@ -176,16 +148,16 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params }) => {
-	const data = await getStaffMemberPersonalInfo(params.id);
+	const data = await getCharacterPersonalInfo(params.id);
 
 	return {
 		props: {
-			personalInfo: data.Staff,
+			personalInfo: data.Character,
 		},
 	};
 };
 
-export default StaffMemberPage;
+export default CharacterPage;
 
 /**
  * Styled Components

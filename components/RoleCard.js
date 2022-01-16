@@ -9,7 +9,7 @@ function RoleCard({ role }) {
 		!!character && (
 			<Card>
 				<Link
-					href={`/character/${character.id}/${character.name.userPreferred}`}>
+					href={`/characters/${character.id}/${character.name.userPreferred}`}>
 					<a className="cover">
 						<MyImage src={character.image.large} layout="fill" />
 					</a>
@@ -17,7 +17,7 @@ function RoleCard({ role }) {
 
 				<div className="titles">
 					<Link
-						href={`/character/${character.id}/${character.name.userPreferred}`}>
+						href={`/characters/${character.id}/${character.name.userPreferred}`}>
 						<a className="title">{character.name.userPreferred}</a>
 					</Link>
 					<div className="relations">

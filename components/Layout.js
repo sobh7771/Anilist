@@ -1,13 +1,13 @@
 import Head from "next/head";
 import Header from "./Header";
 
-function Layout({ title, children, headerBackground }) {
+function Layout({ title, children, background }) {
 	return (
 		<>
 			<Head>
 				<title>{title}</title>
 			</Head>
-			<Header headerBackground={headerBackground} />
+			<Header background={background} />
 			{children}
 		</>
 	);

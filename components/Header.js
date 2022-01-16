@@ -5,43 +5,32 @@ import Dropdown from "./Dropdown";
 
 let scrollBefore = 0;
 
-function Header({ headerBackground }) {
+function Header({ background }) {
 	const [scrollDown, setScrollDown] = useState("");
 	const [scrollY, setScrollY] = useState(0);
 
 	useEffect(() => {
 		window.addEventListener("scroll", function (e) {
 			const scrolled = window.scrollY;
-
 			setScrollY(scrolled);
-
-			if (scrollBefore > scrolled) {
-				scrollBefore = scrolled;
-				setScrollDown(false);
-			} else {
-				scrollBefore = scrolled;
-				setScrollDown(true);
-			}
 		});
 	}, []);
 
-	return (
-		<div
-			css={`
-				position: fixed;
-				background: ${(!scrollY && headerBackground) || "#2b2d42"};
-				height: 68px;
-				width: 100%;
-				z-index: 100;
-				transform: ${scrollDown ? "translateY(-100%)" : "translateY(0)"};
-				transition: background 0.8s ease 0s, transform 0.5s ease 0s;
-				display: flex;
-				align-items: center;
+	useEffect(() => {
+		if (scrollBefore > scrollY) {
+			scrollBefore = scrollY;
+			setScrollDown(false);
+		} else {
+			scrollBefore = scrollY;
+			setScrollDown(true);
+		}
+	}, [scrollY]);
 
-				&:hover {
-					background: #2b2d42;
-				}
-			`}>
+	return (
+		<HeaderWrapper
+			scrollY={scrollY}
+			scrollDown={scrollDown}
+			background={background}>
 			<div className="container">
 				<StyledHeader>
 					<div className="brand"></div>
@@ -99,11 +88,29 @@ function Header({ headerBackground }) {
 					</nav>
 				</StyledHeader>
 			</div>
-		</div>
+		</HeaderWrapper>
 	);
 }
 
 export default Header;
+
+const HeaderWrapper = styled.header`
+	position: fixed;
+	background: ${({ scrollY, background }) =>
+		(!scrollY && background) || "#2b2d42"};
+	height: 68px;
+	width: 100%;
+	z-index: 1000;
+	transform: ${({ scrollY, scrollDown }) =>
+		scrollDown && scrollY ? "translateY(-100%)" : "translateY(0)"};
+	transition: background 0.8s ease 0s, transform 0.5s ease 0s;
+	display: flex;
+	align-items: center;
+
+	&:hover {
+		background: #2b2d42;
+	}
+`;
 
 const StyledHeader = styled.header`
 	display: flex;
@@ -112,18 +119,18 @@ const StyledHeader = styled.header`
 	color: #bcbedc;
 	width: 100%;
 
-	& ul {
+	ul {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
-	& li {
+	li {
 		position: relative;
 		&:not(:last-child) {
 			margin-right: 1.6rem;
 		}
 	}
-	& a {
+	a {
 		display: block;
 		font-family: "Overpass", sans-serif;
 		font-weight: 500;

@@ -90,7 +90,7 @@ const getCharacterStaticPaths = () =>
 		API_URL,
 		gql`
 			{
-				Page(page: 1, perPage: 10) {
+				Page(page: 1, perPage: 5) {
 					characters {
 						id
 						name {

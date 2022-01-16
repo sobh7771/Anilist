@@ -110,7 +110,7 @@ const getStaffMemberStaticPaths = () =>
 		API_URL,
 		gql`
 			{
-				Page(page: 1, perPage: 10) {
+				Page(page: 1, perPage: 5) {
 					staff {
 						id
 						name {

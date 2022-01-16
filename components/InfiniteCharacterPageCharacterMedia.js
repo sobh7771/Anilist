@@ -74,7 +74,9 @@ function InfiniteCharacterCharacterMedia() {
 				<RoleCards>
 					{data.pages.map((page) =>
 						page.Character.media.edges.map((edge) => {
-							return <CharacterCharacterMediaRoleCard edge={edge} />;
+							return (
+								<CharacterCharacterMediaRoleCard edge={edge} key={edge.id} />
+							);
 						})
 					)}
 				</RoleCards>

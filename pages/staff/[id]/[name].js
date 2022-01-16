@@ -94,13 +94,16 @@ function StaffMember({ personalInfo }) {
 						]}
 					/>
 				</div>
+				<InfiniteStaffMemberCharacterMedia />
+				<InfiniteStaffMemberStaffMedia />
 			</div>
-
-			<InfiniteStaffMemberCharacterMedia />
-			{/* <InfiniteStaffMemberStaffMedia /> */}
 		</Layout>
 	);
 }
+
+/**
+ * Query functions
+ **/
 
 const getStaffMemberStaticPaths = () =>
 	request(
@@ -156,6 +159,9 @@ const getStaffMemberPersonalInfo = (id) =>
 		{ id }
 	);
 
+/**
+ * Data fetching
+ **/
 export const getStaticPaths = async () => {
 	const data = await getStaffMemberStaticPaths();
 

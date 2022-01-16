@@ -93,7 +93,7 @@ export default createGlobalStyle`
     font-weight: 600;
     color:#5c728a;
     cursor:pointer;
-
+margin-bottom: 2.4rem;
     &:disabled{
       cursor:not-allowed;
       opacity: 0.5;

@@ -12,7 +12,7 @@ import StaffPreview from "./StaffPreview";
 function Overview({ type }) {
 	const router = useRouter();
 	const { isLoading, isError, data } = useQuery(
-		["Overview", router.asPath],
+		["Overview", router.query],
 		() => getOverview({ type, id: router.query.id })
 	);
 

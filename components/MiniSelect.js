@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import Select from "react-select";
 import { FaSort } from "react-icons/fa";
-import { useEffect, useState } from "react";
-import helpers from "helpers";
 import { useRouter } from "next/router";
 
 const styles = {
@@ -104,10 +102,6 @@ function MiniSelect({ options, defaultValue }) {
 			scroll: false,
 		});
 	};
-
-	useEffect(() => {
-		handleChange(defaultValue, { name: "sort" });
-	}, []);
 
 	return (
 		<StyledMiniSelect>

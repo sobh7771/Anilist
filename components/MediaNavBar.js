@@ -29,6 +29,8 @@ function MediaNavBar() {
 	const hash = router.asPath.split("#")[1];
 	const { id, slug } = router.query;
 
+	const type = router.asPath.split("/")[1];
+
 	return (
 		<StyledMediaNavBar>
 			<ul>
@@ -36,7 +38,7 @@ function MediaNavBar() {
 					css={`
 						${!hash && "color: #3db4f2 !important;"}
 					`}>
-					<Link href={`/anime/${id}/${encodeURIComponent(slug)}`}>
+					<Link href={`/${type}/${id}/${encodeURIComponent(slug)}`}>
 						<a>Overview</a>
 					</Link>
 				</li>

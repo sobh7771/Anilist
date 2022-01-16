@@ -44,7 +44,7 @@ function RoleCard({ role }) {
 
 export default RoleCard;
 
-const Card = styled.div`
+export const Card = styled.div`
 	position: relative;
 	.cover {
 		border-radius: 4px;

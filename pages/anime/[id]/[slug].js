@@ -28,7 +28,7 @@ function AnimePage({ data }) {
 	}
 
 	return (
-		<Layout title={title.userPreferred} headerBackground="rgba(35,38,67,.5)">
+		<Layout title={title.userPreferred} background="rgba(35,38,67,.5)">
 			<Header>
 				<div className="banner">
 					{bannerImage && <MyImage src={bannerImage} layout="fill" priority />}

@@ -1,13 +1,17 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-  *{
+  .preload * {
+    transition: none !important;
+  }
+  
+  * {
     padding:0;
     margin:0;
     box-sizing:border-box;
   }
 
-  html,body{
+  html, body {
     overflow-x:hidden;
   }
 
@@ -27,7 +31,6 @@ export default createGlobalStyle`
     margin: 0 auto;
     padding: 0 1.6rem;
     width: 100%;
-
   }
 
 
@@ -36,10 +39,10 @@ export default createGlobalStyle`
     font: inherit;
   }
 
-  ul{list-style:none;}
+  ul { list-style:none; }
 
-  h1{
-        font-size: 1.9rem;
+  h1 {
+    font-size: 1.9rem;
     font-weight: 400;
   }
 
@@ -60,21 +63,26 @@ export default createGlobalStyle`
       text-transform: uppercase;
       margin-bottom: 20px;
     }
+
+    p:last-child {
+      color:#8ba0b2;
+      font-size:1.2rem;
+    }
   }
 
   .link{
-   		transition: 0.15s;
+    transition: 0.15s;
 
 		&:hover {
 			color: #3db4f2;
 		}
   }
 
-  .mb-1{
+  .mb-1 {
     margin-bottom:1rem;
   }
 
-  	.name {
+  .name {
 		color: #5c728a;
 		font-size: 1.2rem;
 	}
@@ -84,7 +92,7 @@ export default createGlobalStyle`
 		font-size: 1.1rem;
 	}
 
-  .load-more{
+  .load-more {
     background:#fafafa;
     padding:1.4rem;
     border:0;
@@ -93,7 +101,7 @@ export default createGlobalStyle`
     font-weight: 600;
     color:#5c728a;
     cursor:pointer;
-margin-bottom: 2.4rem;
+
     &:disabled{
       cursor:not-allowed;
       opacity: 0.5;

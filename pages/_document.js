@@ -17,7 +17,7 @@ class MyDocument extends Document {
 						rel="stylesheet"
 					/>
 				</Head>
-				<body>
+				<body className="preload">
 					<Main />
 					<div id="progress-bar"></div>
 					<NextScript />

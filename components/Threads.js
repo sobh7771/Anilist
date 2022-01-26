@@ -1,57 +1,57 @@
+import { API_URL } from "config";
+import request, { gql } from "graphql-request";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useInfiniteQuery } from "react-query";
 import styled from "styled-components";
+import InfiniteScroll from "./InfiniteScroll";
 import Thread from "./Thread";
-import { useVisible } from "react-hooks-visible";
-import Spinner from "./Spinner";
-import ProgressBar from "./ProgressBar";
-import { getThreads } from "../graphql";
 
-function Threads({ page, perPage }) {
-	const router = useRouter();
-	const {
-		isLoading,
-		isError,
-		data,
-		fetchNextPage,
-		isFetchingNextPage,
-		hasNextPage,
-	} = useInfiniteQuery(
-		["Threads", router.asPath],
-		({ pageParam = 1 }) => {
-			return getThreads({
-				id: router.query.id,
-				page: pageParam,
-				perPage: 5,
-			});
-		},
-		{
-			getNextPageParam: (last, all) => {
-				const { currentPage, lastPage } = last.Page.pageInfo;
-				if (currentPage === lastPage) {
-					return;
+const GetThreads = gql`
+	query ($id: Int, $page: Int, $perPage: Int = 2) {
+		Page(page: $page, perPage: $perPage) {
+			pageInfo {
+				total
+				perPage
+				currentPage
+				lastPage
+				hasNextPage
+			}
+			threads(mediaCategoryId: $id, sort: ID_DESC) {
+				id
+				title
+				replyCount
+				viewCount
+				replyCommentId
+				repliedAt
+				createdAt
+				categories {
+					id
+					name
 				}
-				return +currentPage + 1;
-			},
+				user {
+					id
+					name
+					avatar {
+						large
+					}
+				}
+				replyUser {
+					id
+					name
+					avatar {
+						large
+					}
+				}
+			}
 		}
-	);
-	const [targetRef, isVisible] = useVisible((vi) => vi > 0.5);
-
-	useEffect(() => {
-		if (isVisible) {
-			fetchNextPage();
-		}
-	}, [isVisible]);
-
-	if (isLoading) {
-		return <ProgressBar />;
 	}
+`;
 
-	if (isError) {
-		return <>Something went wrong!</>;
-	}
+const getThreads = ({ pageParam = 1, queryKey }) =>
+	request(API_URL, GetThreads, { ...queryKey[1], page: pageParam });
+
+function Threads() {
+	const router = useRouter();
 
 	return (
 		<StyledThreads>
@@ -70,42 +70,41 @@ function Threads({ page, perPage }) {
 					<a className="link create-new-thread">Create new thread</a>
 				</Link>
 			</div>
-			<div
-				css={`
-					> div:not(:last-child) {
-						margin-bottom: 1.5rem;
-					}
-				`}>
-				{data.pages.map((page) =>
-					page.Page.threads.map((thread) => (
-						<Thread key={thread.id} thread={thread} />
-					))
-				)}
-				<div ref={targetRef}></div>
-				{isFetchingNextPage ? (
+			<InfiniteScroll
+				queryOptions={{
+					queryFn: getThreads,
+					queryKey: ["Threads", { id: router.query.id, perPage: 5 }],
+					getNextPageParam: (last, all) => {
+						const { currentPage, lastPage } = last.Page.pageInfo;
+						if (currentPage === lastPage) {
+							return;
+						}
+						return +currentPage + 1;
+					},
+				}}>
+				{({ data }) => (
 					<div
 						css={`
-							text-align: center;
+							> div:not(:last-child) {
+								margin-bottom: 1.5rem;
+							}
 						`}>
-						<Spinner />
+						{data.pages.map((page) =>
+							page.Page.threads.map((thread) => (
+								<Thread key={thread.id} thread={thread} />
+							))
+						)}
 					</div>
-				) : (
-					<button
-						className="load-more"
-						disabled={!hasNextPage || isFetchingNextPage}
-						onClick={() => fetchNextPage()}>
-						Load More
-					</button>
 				)}
-			</div>
+			</InfiniteScroll>
 		</StyledThreads>
 	);
 }
 
 export default Threads;
 
-/**
- * Styled Components
+/*
+ * Styles
  */
 
 const StyledThreads = styled.div`

@@ -1,5 +1,5 @@
 import GlobalStyle from "@/components/GlobalStyle";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const client = new QueryClient({
@@ -7,12 +7,15 @@ const client = new QueryClient({
 });
 
 function MyApp({ Component, pageProps }) {
-	useEffect(() => {
-		document.querySelector(".preload").removeAttribute("class");
-	}, []);
+	const [isBrowser, setIsBrowser] = useState(false);
+
+	useEffect(() => setIsBrowser(true), []);
+
 	return (
 		<QueryClientProvider client={client}>
-			<Component {...pageProps} />
+			<div className={isBrowser && "preload"}>
+				<Component {...pageProps} />
+			</div>
 			<GlobalStyle />
 		</QueryClientProvider>
 	);

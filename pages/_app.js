@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
 
 	return (
 		<QueryClientProvider client={client}>
-			<div className={isBrowser && "preload"}>
+			<div className={!isBrowser && "preload"}>
 				<Component {...pageProps} />
 			</div>
 			<GlobalStyle />

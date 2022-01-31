@@ -1,95 +1,87 @@
-import { getStaff } from "../graphql";
 import { useRouter } from "next/router";
-import { useInfiniteQuery } from "react-query";
-import { useVisible } from "react-hooks-visible";
-import { useEffect } from "react";
-import ProgressBar from "./ProgressBar";
+
+/*
+ * QUERIES
+ */
+const query = gql`
+  query media($id: Int, $type: MediaType, $page: Int, $perPage: Int = 5) {
+    Media(id: $id, type: $type) {
+      staff(page: $page, perPage: $perPage) {
+        edges {
+          id
+          role
+          node {
+            id
+            name {
+              userPreferred
+            }
+            image {
+              large
+            }
+          }
+        }
+        pageInfo {
+          lastPage
+          currentPage
+        }
+      }
+    }
+  }
+`;
+
+/*
+ * QUERY FUNCTIONS
+ */
+const getStaff = ({ queryKey, pageParam = 1 }) =>
+  request(API_URL, query, { page: pageParam, ...queryKey[1] });
+
 import Member from "./Member";
-import Spinner from "./Spinner";
+import InfiniteScroll from "./InfiniteScroll";
+import request, { gql } from "graphql-request";
+import { API_URL } from "config";
 
 function Staff({ type }) {
-	const router = useRouter();
-	const {
-		isLoading,
-		isError,
-		data,
-		fetchNextPage,
-		isFetchingNextPage,
-		hasNextPage,
-	} = useInfiniteQuery(
-		["Staff", router.asPath],
-		({ pageParam = 1 }) => {
-			return getStaff({
-				id: router.query.id,
-				type,
-				page: pageParam,
-			});
-		},
-		{
-			getNextPageParam: (last, all) => {
-				const { lastPage, currentPage } = last.Media.staff.pageInfo;
-
-				if (lastPage === currentPage) {
-					return;
-				}
-
-				return currentPage + 1;
-			},
-		}
-	);
-	const [targetRef, isVisible] = useVisible((vi) => vi > 0.5);
-
-	useEffect(() => {
-		if (isVisible) {
-			fetchNextPage();
-		}
-	}, [isVisible]);
-
-	if (isLoading) {
-		return <ProgressBar />;
-	}
-
-	if (isError) {
-		return <>Something went wrong!</>;
-	}
-
-	return (
-		<div>
-			<div
-				css={`
-					display: grid;
-					grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
-					column-gap: 3rem;
-					> div:not(:last-child) {
-						margin-bottom: 1.5rem;
-					}
-				`}>
-				{data.pages.map((page) =>
-					page.Media.staff.edges.map((m) => <Member key={m.id} member={m} />)
-				)}
-				<div ref={targetRef}></div>
-			</div>
-			{isFetchingNextPage ? (
-				<div
-					css={`
-						text-align: center;
-					`}>
-					<Spinner />
-				</div>
-			) : (
-				<button
-					className="load-more"
-					disabled={!hasNextPage || isFetchingNextPage}
-					onClick={() => fetchNextPage()}>
-					Load More
-				</button>
-			)}
-		</div>
-	);
+  const router = useRouter();
+  return (
+    <div>
+      <InfiniteScroll
+        queryOptions={{
+          queryFn: getStaff,
+          queryKey: ["staff", { id: router.query.id, type }],
+          getNextPageParam: (last, all) => {
+            const { currentPage, lastPage } = last.Media.staff.pageInfo;
+            if (currentPage === lastPage) {
+              return;
+            }
+            return +currentPage + 1;
+          },
+        }}
+      >
+        {({ data }) => (
+          <div
+            css={`
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(35rem, 1fr));
+              column-gap: 3rem;
+              > div:not(:last-child) {
+                margin-bottom: 1.5rem;
+              }
+            `}
+          >
+            {data.pages.map((page) =>
+              page.Media.staff.edges.map((m) => (
+                <Member key={m.id} member={m} />
+              ))
+            )}
+          </div>
+        )}
+      </InfiniteScroll>
+    </div>
+  );
 }
 
 Staff.defaultProps = {
-	type: "ANIME",
+  type: "ANIME",
 };
 
 export default Staff;
